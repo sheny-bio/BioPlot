@@ -134,9 +134,15 @@ STATICFILES_DIRS = [(os.path.join(BASE_DIR, 'static'))]
 DIR_SCRIPT = f"{os.path.dirname(__file__)}/../bin"
 DIR_TMP = os.path.abspath(f"{os.path.dirname(__file__)}/../Tmp/")
 
-RSCRIPT_BASE = "/dssg/home/sheny/anaconda3/envs/BioPlot_Base/bin/Rscript"
+# RSCRIPT_BASE = "/dssg/home/sheny/anaconda3/envs/BioPlot_Base/bin/Rscript"
+# RSCRIPT_KEGG = "/dssg/home/sheny/anaconda3/envs/BioPlot_kegg/bin/Rscript"
+# RSCRIPT_ONCO = "/dssg/home/sheny/anaconda3/envs/BioPlot_oncoprint/bin/Rscript"
+# RSCRIPT_SWIMMER = "/dssg/home/sheny/anaconda3/envs/BioPlot_swimmer/bin/Rscript"
+
+RSCRIPT_BASE = f"{os.path.dirname(__file__)}/../bin/Rscript"
 RSCRIPT_KEGG = "/dssg/home/sheny/anaconda3/envs/BioPlot_kegg/bin/Rscript"
 RSCRIPT_ONCO = "/dssg/home/sheny/anaconda3/envs/BioPlot_oncoprint/bin/Rscript"
 RSCRIPT_SWIMMER = "/dssg/home/sheny/anaconda3/envs/BioPlot_swimmer/bin/Rscript"
+
 
 DIR_DB = os.path.join(BASE_DIR, 'static', 'db')
