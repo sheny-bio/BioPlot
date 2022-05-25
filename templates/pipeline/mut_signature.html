@@ -1,0 +1,439 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>mutation signature 分析</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="{% static 'layuiadmin/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'layuiadmin/style/admin.css' %}" media="all">
+</head>
+
+<style>
+    .layui-table-tool {background-color: #FEFFFF;}
+            .layui-table {
+        width:100%;
+        margin:15px 0;
+        border:0;
+    }
+
+    .layui-table th {
+        background-color:#C3E7FA;
+        color:#000000
+    }
+    .layui-table th,.layui-table td {
+        border: 1px solid #dcf1fc;
+        border-width:1px 0 1px 0
+    }
+    .layui-table tr {
+        border: 1px solid #dcf1fc;
+    }
+    .layui-table tr:nth-child(odd){
+        background-color:#ebf7fd;
+    }
+    .layui-table tr:nth-child(even){
+        background-color:#fdfdfd;
+    }
+    .layui-table-view .layui-table[lay-size=sm] .layui-table-cell {
+        height: 26px;
+        line-height: 20px;
+    }
+
+</style>
+
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row  layui-col-space10">
+
+        <div class="layui-col-md5 ">
+            <div class="layui-row">
+
+                <div class="layui-col-md12">
+                    <div class="layui-tab layui-tab-brief layui-bg-white">
+                        <ul class="layui-tab-title">
+                            <li class="layui-this">参数设置</li>
+                        </ul>
+
+                        <div class="layui-tab-content">
+                            <div class="layui-tab-item layui-show" style="overflow: auto;height: 550px;">
+                                <form class="layui-form" action="">
+                                    <div style="padding-bottom: 10px">
+                                        <button type="button" class="layui-btn layui-btn-sm" id="button-upload"><i class="layui-icon layui-icon-upload"></i>上传文件</button>
+                                        <button id="button-form" class="layui-btn layui-btn-sm layui-btn-disabled" lay-submit="" lay-filter="button-form">数据分析</button>
+                                        <table id="table_upload" lay-filter="table_upload"></table>
+                                    </div>
+
+                                    <div class="layui-form-item layui-form-pane">
+                                        <label class="layui-form-label">任务名</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="id" class="layui-input" value="Gistic">
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+                                        <div class="layui-col-lg6">
+                                              <label id ="ta" class="layui-form-label">TA</label>
+                                            <div class="layui-input-block">
+                                                <input type="number" name="ta" value="0.25" class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-lg6">
+                                            <label id="td" class="layui-form-label">TD</label>
+                                            <div class="layui-input-block">
+                                                <input type="number" name="td" value="0.25" class="layui-input">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+                                        <div class="layui-col-lg6">
+                                             <label id="rx" class="layui-form-label">RX</label>
+                                            <div class="layui-input-block">
+                                                <input type="number" name="rx" value="1" class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-lg6">
+                                            <label id="cap" class="layui-form-label">Cap</label>
+                                            <div class="layui-input-block">
+                                                <input type="number" name="cap" value="6" class="layui-input">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+                                        <div class="layui-col-lg6">
+                                             <label id="qvt" class="layui-form-label">Qvt</label>
+                                            <div class="layui-input-block">
+                                                <input type="number" name="qvt" value="0.25" class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-lg6">
+                                            <label id="broad" class="layui-form-label">Broad</label>
+                                            <div class="layui-input-block">
+                                                <input type="number" name="broad" value="1" class="layui-input">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+                                        <div class="layui-col-lg6">
+                                             <label id="brlen" class="layui-form-label">BrLen</label>
+                                            <div class="layui-input-block">
+                                                 <input type="number" name="brlen" value="0.7" class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-lg6">
+                                            <label id="genegistic" class="layui-form-label">GeneGistic</label>
+                                            <div class="layui-input-block">
+                                                <input type="number" name="genegistic" value="1" class="layui-input">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">任务监控</div>
+                        <div class="layui-card-body">
+                            <table id="table_monitor" lay-filter="table_server"></table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+        <div class="layui-col-md7">
+            <div class="layui-tab layui-tab-brief layui-bg-white">
+                <ul class="layui-tab-title">
+                    <li id="tab-title-rslt">分析结果</li>
+                    <li id="tab-title-help" class="layui-this">说明文档</li>
+                </ul>
+
+                <div id="rslt-div" class="layui-tab-content"  style="height: 700px">
+                    <div id="tab-item-rslt" class="layui-tab-item">
+                        <div id="div_img_bg" style="">
+                            <img id="img_bg" src="{% static 'img/no_images.png' %}" style="margin: 0 auto;">
+                        </div>
+                        <div id="div_img_rslt" style="display:none">
+                            <iframe id="img_rslt" src="" style="height: 600px; width: 100%" frameborder="0"></iframe>
+                        </div>
+                    </div>
+
+                    <div id="tab-item-help" class="layui-tab-item  layui-show">
+                        <iframe id="iframe-body" src="{% url 'gistic_doc' %}"></iframe>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        {% verbatim %}
+        <script type="text/html" id="toolbar-tools">
+            <div class="layui-btn-container">
+                {{#  if(d.code == "run"){ }}
+                    <button class="layui-btn layui-btn-xs layui-btn-warm" lay-event="rm_analyze">运行中</button>
+                {{#  } else if(d.code == "done") { }}
+                    <button class="layui-btn layui-btn-xs layui-btn-normal" lay-event="rm_analyze">完成</button>
+                {{#  } else if(d.code == "error") { }}
+                    <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="in_analyze">失败</button>
+                {{#  } else { }}
+                     <button class="layui-btn layui-btn-xs layui-btn-disabled" lay-event="in_analyze">无任务</button>
+                {{#  } }}
+          </div>
+        </script>
+        {% endverbatim %}
+
+
+    </div>
+</div>
+
+<script src="{% static '/js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static '/layuiadmin/layui/layui.js' %}"></script>
+<script src="{% static '/layer/mobile/layer.js' %}"></script>
+
+{#tips#}
+<script>
+    let tips_ta;
+    let tips_td;
+    let tips_rx;
+    let tips_cap;
+    let tips_qvt;
+    let tips_broad;
+    let tips_brlen;
+    let tips_genegistic;
+
+    $("#ta").hover(function () {
+        tips_ta = layer.tips("Amplifications Threshold", "#ta", {tips:[2,'#3595CC']});
+    }, function () {
+        layer.close(tips_ta)
+    });
+
+    $("#td").hover(function () {
+        tips_td = layer.tips("Deletions Threshold", "#td", {tips:[2,'#3595CC']});
+    }, function () {
+        layer.close(tips_td)
+    });
+
+    $("#rx").hover(function () {
+        tips_rx = layer.tips("Remove X", "#rx", {tips:[2,'#3595CC']});
+    }, function () {
+        layer.close(tips_rx)
+    });
+
+    $("#cap").hover(function () {
+        tips_cap = layer.tips("Cap Value", "#cap", {tips:[2,'#3595CC']});
+    }, function () {
+        layer.close(tips_cap)
+    });
+
+    $("#qvt").hover(function () {
+        tips_qvt = layer.tips("Qv Thresh", "#qvt", {tips:[2,'#3595CC']});
+    }, function () {
+        layer.close(tips_qvt)
+    });
+
+    $("#broad").hover(function () {
+        tips_broad = layer.tips("Run Broad Analysis", "#broad", {tips:[2,'#3595CC']});
+    }, function () {
+        layer.close(tips_broad)
+    });
+
+    $("#brlen").hover(function () {
+        tips_brlen = layer.tips("Broad Length Cutoff", "#brlen", {tips:[2,'#3595CC']});
+    }, function () {
+        layer.close(tips_brlen)
+    });
+
+    $("#genegistic").hover(function () {
+        tips_genegistic = layer.tips("Do Gene Gistic", "#genegistic", {tips:[2,'#3595CC']});
+    }, function () {
+        layer.close(tips_genegistic)
+    });
+
+</script>
+
+<script>
+    layui.config({
+        base: '{% static "layuiadmin/" %}'
+    }).extend({
+        index: 'lib/index'
+    }).use(['index', 'form', 'upload', 'table'], function(){
+        let $ = layui.$
+            ,form = layui.form
+            ,table = layui.table
+            ,upload = layui.upload;
+
+        let n_success = 0, n_failed = 0;
+
+        // iframe和图片自适应
+        function FrameWH() {
+            let h = document.getElementById("rslt-div").clientHeight - 20;
+            let w = document.getElementById("rslt-div").clientWidth - 20;
+            document.getElementById("iframe-body").setAttribute("height", h + "px");
+            document.getElementById("iframe-body").setAttribute("width", w + "px");
+            document.getElementById("img_bg").setAttribute("height", h + "px");
+            document.getElementById("img_bg").setAttribute("width", w + "px");
+            document.getElementById("img_rslt").setAttribute("height", h + "px");
+            document.getElementById("img_rslt").setAttribute("width", w + "px");
+        }
+        FrameWH();
+        $(window).resize(function () {
+            FrameWH();
+        });
+
+        // 任务状态表格初始化
+        table.render({
+            elem: '#table_monitor'
+            ,height: 80
+            ,size: 'sm'
+            ,cols: [[
+                {field: 'jobid', title: '任务ID', align:'center'}
+                ,{field: 'stat', title: '任务状态', align:'center', toolbar: '#toolbar-tools'}
+                ,{field: 'flag', title: '任务标签', align:'center'}
+                ,{field: 'time', title: 'time', align:'center'}
+                ,{field: 'error', title: '报错日志', align:'center'}
+                ]]
+            ,data: [{"jobid": "", "stat": "", "flag": "", "time": "", "msg": ""}]
+        });
+
+        // 获得一个临时目录
+        $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
+        function getDir(){
+            let rslt = "";
+            $.ajax({
+                url: "{% url 'backstage:give_me_directory' %}"
+                ,type: "post"
+                ,async: false
+                ,data: {tmp_dir: "Gistic"}
+                ,success: function (data) {
+                    rslt = data["tmp_dir"]
+                }
+            });
+            return rslt
+        }
+
+        // 文件上传
+        let workDir = getDir();
+        console.log(workDir);
+
+        upload.render({
+            elem: "#button-upload"
+            ,url: "{% url 'backstage:upload_file' %}"
+            ,multiple: true
+            ,accept: "file"
+            ,data: {"TmpDir": workDir + "/segs"}
+            ,before: function (obj) {
+                table.render({
+                    elem: '#table_upload'
+                    ,height: 80
+                    ,size: 'sm'
+                    ,cols: [[
+                        {field: 'n_success', title: '上传成功', align:'center'}
+                        ,{field: 'n_failed', title: '上传失败', align:'center'}
+                        ]]
+                    ,data: [{"n_success": 0, "n_failed": 0}]
+                });
+            }
+            ,done: function (res) {
+                if (res.code === 0){n_success += 1}else{n_failed += 1}
+                table.reload('table_upload', {data: [{"n_success": n_success, "n_failed": n_failed}]})
+            }
+            ,allDone: function (obj) {
+                layer.msg("文件上传成功");
+                table.reload('table_upload', {data: [{"n_success": n_success, "n_failed": n_failed}]});
+                $("#button-upload").addClass("layui-btn-disabled");
+                $("#button-form").removeClass("layui-btn-disabled");
+            }
+            ,error: function(index, upload){
+                layer.msg("文件上传失败")
+            }
+        });
+
+
+        // 检查任务状态
+        function checkJob(data){
+            let rslt = "";
+            $.ajax({
+                url: "{% url 'backstage:check_job_status' %}"
+                ,type: "post"
+                ,data: data
+                ,async: false
+                ,success: function (data) {
+                    rslt = data;
+                }
+                ,error: function (jqXHR, textStatus, errorThrown){
+                    rslt = {code: "error"};
+                    layer.msg(errorThrown)
+                }
+            });
+            return rslt
+        }
+
+        // 监控任务状态，若任务完成，则展示结果。若任务报错，则提示
+        function monitorJob(data){
+            $("#tab-item-help").removeClass("layui-show");
+            $("#tab-item-rslt").addClass("layui-show");
+            $("#tab-title-rslt").addClass("layui-this");
+            $("#tab-title-help").removeClass("layui-this");
+            $("#button-form").addClass("layui-btn-disabled");
+            $("#button-upload").addClass("layui-btn-disabled");
+            document.getElementById("div_img_bg").setAttribute("style", "");
+            document.getElementById("div_img_rslt").setAttribute("style", "display:none");
+
+            let interval = setInterval(function () {
+                let status = checkJob(data);
+                if (status["code"] === "run"){
+                    table.reload("table_monitor", {data: [status]});
+                }else {
+                    table.reload("table_monitor", {data: [status]});
+                    layer.msg("完成");
+                    $("#button-form").removeClass("layui-btn-disabled");
+                    document.getElementById("div_img_bg").setAttribute("style", "display:none");
+                    document.getElementById("div_img_rslt").setAttribute("style", "");
+                    document.getElementById("img_rslt").setAttribute("src", "{% url 'gistic_home' %}?path=" + data["path"]);
+                    clearInterval(interval);
+                }
+            }, 10000);
+        }
+
+        // 数据分析
+        form.on('submit(button-form)', function(data){
+            let fields = data.field;
+            let index = layer.load(2);
+            fields["TmpDir"] = workDir;
+
+            $.ajax({
+                url: "{% url 'backstage:pipeline_gistic' %}"
+                ,type: "post"
+                ,async: false
+                ,data: fields
+                ,success: function(data){
+                    layer.close(index);
+                    $("#button-form").removeClass("layui-btn-disabled");
+                    layer.msg("任务已提交");
+                    monitorJob(data)
+                }
+                ,error: function (jqXHR, textStatus, errorThrown) {
+                    layer.close(index);
+                    layer.msg(errorThrown)
+                }
+            });
+            return false;
+        });
+
+
+    });
+</script>
+</body>
+</html>

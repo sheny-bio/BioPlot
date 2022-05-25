@@ -1,0 +1,569 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>热图</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="{% static 'layuiadmin/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'layuiadmin/style/admin.css' %}" media="all">
+</head>
+
+<style>
+    .layui-table-tool {background-color: #FEFFFF;}
+            .layui-table {
+        width:100%;
+        margin:15px 0;
+        border:0;
+    }
+
+    .layui-table th {
+        background-color:#C3E7FA;
+        color:#000000
+    }
+    .layui-table th,.layui-table td {
+        border: 1px solid #dcf1fc;
+        border-width:1px 0 1px 0
+    }
+    .layui-table tr {
+        border: 1px solid #dcf1fc;
+    }
+    .layui-table tr:nth-child(odd){
+        background-color:#ebf7fd;
+    }
+    .layui-table tr:nth-child(even){
+        background-color:#fdfdfd;
+    }
+    .layui-table-view .layui-table[lay-size=sm] .layui-table-cell {
+        height: 26px;
+        line-height: 20px;
+    }
+</style>
+
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row  layui-col-space10">
+
+        <div class="layui-col-md5">
+            <div class="layui-row">
+
+                <div class="layui-col-md12">
+                    <div class="layui-tab layui-tab-brief layui-bg-white" style="height: 660px;">
+                        <ul class="layui-tab-title">
+                            <li class="layui-this">参数设置</li>
+                        </ul>
+
+                        <div class="layui-tab-content">
+                            <div class="layui-tab-item layui-show">
+                                <form class="layui-form" action="">
+                                    <div style="overflow-y: auto; height: 500px; padding: 10px; margin-bottom: 20px">
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 14px">文件设置</legend>
+                                        </fieldset>
+
+                                        <button type="button" class="layui-btn layui-btn-sm" id="button-upload" style="margin-bottom: 10px"><i class="layui-icon"></i>上传文件</button>
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">输入文件</label>
+                                                <div class="layui-input-block">
+                                                    <input id="exprTable" name="exprTable" class="layui-input" placeholder="请点击上传文件按钮进行上传" readonly lay-verify="required">
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">输出文件名</label>
+                                                <div class="layui-input-block">
+                                                    <input name="set_filename" class="layui-input" lay-verify="required" value="Heatmap">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+                                            <div class="layui-col-lg6">
+                                                  <label class="layui-form-label">图片宽度</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="set_pic_width" value="10" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">图片高度</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="set_pic_height" value="8" class="layui-input">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 14px">聚类和排序</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item">
+                                            <div class="layui-col-lg6">
+                                                  <label class="layui-form-label">按行聚类: </label>
+                                                <div class="layui-input-block">
+                                                    <input id="cluster_row" lay-filter="cluster_row" type="radio" name="whether_cluster_row" value="TRUE" title="是">
+                                                    <input id="un_cluster_row" lay-filter="un_cluster_row"  type="radio" name="whether_cluster_row" value="FALSE" title="否" checked>
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-lg6">
+                                                  <label class="layui-form-label">按列聚类: </label>
+                                                <div class="layui-input-block">
+                                                    <input id="cluster_col" lay-filter="cluster_col" type="radio" name="whether_cluster_column" value="TRUE" title="是" checked>
+                                                    <input id="un_cluster_col" lay-filter="un_cluster_col"  type="radio" name="whether_cluster_column" value="FALSE" title="否">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item">
+                                            <div class="layui-col-lg6">
+                                                  <label class="layui-form-label">按行排序: </label>
+                                                <div class="layui-input-block">
+                                                    <input id="select_row" lay-filter="select_row" type="radio" name="whether_original_order_row" value="TRUE" title="是" checked>
+                                                    <input id="unselect_row" lay-filter="unselect_row" type="radio" name="whether_original_order_row" value="FALSE" title="否">
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-lg6">
+                                                  <label class="layui-form-label">按列排序: </label>
+                                                <div class="layui-input-block">
+                                                    <input id="select_col" lay-filter="select_col" type="radio" name="whether_original_order_column" value="TRUE" title="是">
+                                                    <input id="unselect_col" lay-filter="unselect_col" type="radio" name="whether_original_order_column" value="FALSE" title="否" checked>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">聚类算法 </label>
+                                                <div class="layui-input-block">
+                                                    <select name="set_clustering_method" lay-verify="required">
+                                                        <option value="single" selected>single</option>
+                                                        <option value="ward.D">ward.D</option>
+                                                        <option value="ward.D2">ward.D2</option>
+                                                        <option value="complete">complete</option>
+                                                        <option value="average">average</option>
+                                                        <option value="mcquitty">mcquitty</option>
+                                                        <option value="median">median</option>
+                                                        <option value="centroid">centroid</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">行距离算法 </label>
+                                                <div class="layui-input-block">
+                                                    <select name="set_clustering_distance_rows" lay-verify="required">
+                                                        <option value="correlation" selected>correlation</option>
+                                                        <option value="euclidean">euclidean</option>
+                                                        <option value="maximum">maximum</option>
+                                                        <option value="manhattan">manhattan</option>
+                                                        <option value="canberra">canberra</option>
+                                                        <option value="binary">binary</option>
+                                                        <option value="minkowsk">minkowsk</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">列距离算法</label>
+                                                <div class="layui-input-block">
+                                                    <select name="set_clustering_distance_cols" lay-verify="required">
+                                                        <option value="correlation" selected>correlation</option>
+                                                        <option value="euclidean">euclidean</option>
+                                                        <option value="maximum">maximum</option>
+                                                        <option value="manhattan">manhattan</option>
+                                                        <option value="canberra">canberra</option>
+                                                        <option value="binary">binary</option>
+                                                        <option value="minkowsk">minkowsk</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">树高度</label>
+                                                <div class="layui-input-block">
+                                                    <label>
+                                                        <input type="number" name="set_treeheight_col" value="50" class="layui-input">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">树宽度</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="set_treeheight_row" value="50" class="layui-input">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 14px">图例</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item">
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">是否显示: </label>
+                                                <div class="layui-input-block">
+                                                    <input type="radio" name="whether_show_legend" value="TRUE" title="是" checked>
+                                                    <input type="radio" name="whether_show_legend" value="FALSE" title="否">
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">标准化: </label>
+                                                <div class="layui-input-block">
+                                                    <label>
+                                                        <select name="whether_scale" lay-verify="required">
+                                                            <option value="none" >none</option>
+                                                            <option value="row">row</option>
+                                                            <option value="column">column</option>
+                                                        </select>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 14px">横坐标</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item">
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">是否显示: </label>
+                                                <div class="layui-input-block">
+                                                    <input type="radio" name="whether_show_rownames" value="TRUE" title="是" checked>
+                                                    <input type="radio" name="whether_show_rownames" value="FALSE" title="否">
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">标签大小: </label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="set_font_size_row" value="" class="layui-input">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 14px">纵坐标</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item">
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">是否显示: </label>
+                                                <div class="layui-input-block">
+                                                    <input type="radio" name="whether_show_colnames" value="TRUE" title="是" checked>
+                                                    <input type="radio" name="whether_show_colnames" value="FALSE" title="否">
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">标签大小: </label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="set_font_size_col" value="" class="layui-input">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item">
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">标签角度: </label>
+                                                <div class="layui-input-block">
+                                                    <select name="set_angle_col" lay-verify="required" type="number">
+                                                        <option value="0" selected>0</option>
+                                                        <option value="45">45</option>
+                                                        <option value="90">90</option>
+                                                        <option value="270">270</option>
+                                                        <option value="315">315</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 14px">热图方块</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item">
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">宽度: </label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="set_cellwidth" value="" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">高度: </label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="set_cellheight" value="" class="layui-input">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item">
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">颜色梯度: </label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="set_color_gradient" value="#008450,#EFB700,#B81D13" class="layui-input" style="font-size: 10px">
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">梯度数量: </label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="set_color_gradient_number" value="100" class="layui-input">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item">
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">边框颜色: </label>
+
+                                                <div class="layui-input-inline" style="width: 110px;">
+                                                    <input type="text" placeholder="请选择颜色" class="layui-input" name="set_border_color" value="white" id="set_border_color">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-set_border_color"></div>
+                                                </div>
+
+                                            </div>
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">显示数值: </label>
+                                                <div class="layui-input-block">
+                                                    <input type="radio" name="whether_display_number" value="TRUE" title="是" checked>
+                                                    <input type="radio" name="whether_display_number" value="FALSE" title="否">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item">
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">数值大小: </label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="set_font_size_num" value="" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">数值颜色: </label>
+
+                                                <div class="layui-input-inline" style="width: 110px;">
+                                                    <input type="text" placeholder="请选择颜色" class="layui-input" name="set_number_color" value="white" id="set_number_color">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-set_number_color"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 14px">图形分区</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item">
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">按列分区: </label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="set_cutree_cols" value="4" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">按行分区: </label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="set_cutree_rows" value="2" class="layui-input">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item layui-layout-admin" style="padding-bottom: 10px">
+                                        <div class="layui-input-block">
+                                            <button id="button-form" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="button-form">分析</button>
+                                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-md7">
+            <div class="layui-tab layui-tab-brief layui-bg-white">
+                <ul class="layui-tab-title">
+                    <li id="tab-title-rslt">分析结果</li>
+                    <li id="tab-title-help" class="layui-this">说明文档</li>
+                </ul>
+
+                <div id="rslt-div" class="layui-tab-content" style="height: 600px">
+                    <div id="tab-item-rslt" class="layui-tab-item">
+                        <img id="img-rslt" src="{% static 'img/no_images.png' %}" style="margin: 0 auto;">
+                    </div>
+
+                    <div id="tab-item-help" class="layui-tab-item  layui-show">
+                        <iframe id="iframe-body" src="{% url 'plot_heatmap_doc' %}" style="height: 600px; width: 100%" frameborder="0"></iframe>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        {% verbatim %}
+        <script type="text/html" id="toolbar-tools">
+            <div class="layui-btn-container">
+                {{#  if(d.code == "run"){ }}
+                    <button class="layui-btn layui-btn-xs layui-btn-warm" lay-event="rm_analyze">运行中</button>
+                {{#  } else if(d.code == "done") { }}
+                    <button class="layui-btn layui-btn-xs layui-btn-normal" lay-event="rm_analyze">完成</button>
+                {{#  } else if(d.code == "error") { }}
+                    <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="in_analyze">失败</button>
+                {{#  } else { }}
+                     <button class="layui-btn layui-btn-xs layui-btn-disabled" lay-event="in_analyze">无任务</button>
+                {{#  } }}
+          </div>
+        </script>
+        {% endverbatim %}
+
+    </div>
+</div>
+
+
+<script src="{% static '/js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static '/layuiadmin/layui/layui.js' %}"></script>
+<script src="{% static '/js/bio_plot.js' %}"></script>
+<script>
+
+    layui.config({
+        base: '{% static "layuiadmin/" %}'
+    }).extend({
+        index: 'lib/index',
+    }).use(['index', 'form', 'table', 'upload', 'colorpicker'], function(){
+        let $ = layui.$
+            ,layer = layui.layer
+            ,table = layui.table
+            ,upload = layui.upload
+            ,colorpicker = layui.colorpicker
+            ,form = layui.form;
+
+        // iframe和图片自适应
+       function FrameWH() {
+           let h = document.getElementById("rslt-div").clientHeight - 20;
+           let w = document.getElementById("rslt-div").clientWidth - 20;
+           document.getElementById("img-rslt").setAttribute("height", h + "px");
+           document.getElementById("img-rslt").setAttribute("width", w + "px");
+           document.getElementById("iframe-body").setAttribute("height", h + "px");
+           document.getElementById("iframe-body").setAttribute("width", w + "px");
+       }
+       FrameWH();
+       $(window).resize(function () {
+           FrameWH();
+       });
+
+       // 上传数据
+        upload.render({
+            elem: '#button-upload'
+            ,accept: "file"
+            ,exts: "xls|xlsx"
+            ,url: '{% url "backstage:upload_file" %}'
+            ,done: function(res){
+                document.getElementById("exprTable").setAttribute("value", res["file"]);
+            }
+            ,error: function(){
+                layer.msg("上传失败")
+            }
+        });
+
+        // 画图
+        $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
+        form.on('submit(button-form)', function(data){
+
+            $.ajax({
+                url: "{% url 'backstage:plot_heatmap' %}"
+                ,type: "post"
+                ,data: data.field
+                ,beforeSend: function () {
+                    layer.load(1);
+                    $("#button-form").addClass(" layui-btn-disabled");
+                    $("#tab-item-help").removeClass("layui-show");
+                    $("#tab-title-help").removeClass("layui-this");
+                    $("#tab-title-rslt").addClass("layui-this");
+                    $("#tab-item-rslt").addClass("layui-show");
+                    document.getElementById("img-rslt").setAttribute("src", "{% static 'img/no_images.png' %}");
+                }
+                ,success: function (data) {
+                    document.getElementById("img-rslt").setAttribute("src", "{% url 'backstage:get_file' %}?path=" + data["file"]);
+                }
+                ,complete: function () {
+                    layer.closeAll();
+                    $("#button-form").removeClass("layui-btn-disabled");
+                }
+                ,error: function (jqXHR, textStatus, errorThrown) {
+                    layer.msg(errorThrown)
+                }
+            });
+
+            return false;
+        });
+
+        // 点击显示原图
+        $("#img-rslt").click(function () {
+            layer.photos({
+                photos: '#tab-item-rslt'
+                ,anim: 5
+                ,shade: [0.2, '#393D49']
+              });
+        });
+
+        // 按行聚类和按行排序互斥
+        form.on('radio(cluster_row)', function(data){
+            $("#select_row").prop("checked", false);
+            $("#unselect_row").prop("checked", true);
+            form.render("radio");
+        });
+
+        form.on('radio(select_row)', function(data){
+            $("#cluster_row").prop("checked", false);
+            $("#un_cluster_row").prop("checked", true);
+            form.render("radio");
+        });
+
+        // 按列聚类和按列排序互斥
+        form.on('radio(cluster_col)', function(data){
+            $("#select_col").prop("checked", false);
+            $("#unselect_col").prop("checked", true);
+            form.render("radio");
+        });
+
+        form.on('radio(select_col)', function(data){
+            $("#cluster_col").prop("checked", false);
+            $("#un_cluster_col").prop("checked", true);
+            form.render("radio");
+        });
+
+        // 边框颜色
+        colorpicker.render({
+            elem: '#colorpicker-set_border_color'
+            ,color: '#1c97f5'
+            ,done: function(color){
+                $('#set_border_color').val(color);
+            }
+        });
+
+        // 数值颜色
+        colorpicker.render({
+            elem: '#colorpicker-set_number_color'
+            ,color: '#1c97f5'
+            ,done: function(color){
+                $('#set_number_color').val(color);
+            }
+        });
+
+
+
+    });
+  </script>
+</body>
+</html>

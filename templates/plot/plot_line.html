@@ -1,0 +1,2011 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>散点图</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="{% static 'layuiadmin/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'layuiadmin/style/admin.css' %}" media="all">
+</head>
+
+<style>
+    .layui-table-tool {background-color: #FEFFFF;}
+            .layui-table {
+        width:100%;
+        margin:15px 0;
+        border:0;
+    }
+
+    .layui-table th {
+        background-color:#C3E7FA;
+        color:#000000
+    }
+    .layui-table th,.layui-table td {
+        border: 1px solid #dcf1fc;
+        border-width:1px 0 1px 0
+    }
+    .layui-table tr {
+        border: 1px solid #dcf1fc;
+    }
+    .layui-table tr:nth-child(odd){
+        background-color:#ebf7fd;
+    }
+    .layui-table tr:nth-child(even){
+        background-color:#fdfdfd;
+    }
+    .layui-table-view .layui-table[lay-size=sm] .layui-table-cell {
+        height: 26px;
+        line-height: 20px;
+    }
+    img {
+
+image-rendering: -moz-crisp-edges; /* Firefox */
+image-rendering: -o-crisp-edges; /* Opera */
+image-rendering: -webkit-optimize-contrast; /*Webkit (non-standard naming) */
+        image-rendering: crisp-edges;
+-ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
+
+}
+
+</style>
+
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row  layui-col-space10">
+
+        <div class="layui-col-md5">
+            <div class="layui-row">
+
+                <div class="layui-col-md12">
+                    <div class="layui-tab layui-tab-brief layui-bg-white" style="height: 660px;">
+                        <ul class="layui-tab-title">
+                            <li class="layui-this">参数设置</li>
+                        </ul>
+
+                        <div class="layui-tab-content">
+                            <div class="layui-tab-item layui-show">
+                                <form lay-filter="form" class="layui-form" action="">
+                                    <div style="overflow-y: auto; height: 500px; padding: 10px; margin-bottom: 20px">
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 20px; color: #880e4f; font-weight: bold">必填项</legend>
+                                        </fieldset>
+
+                                        <button type="button" class="layui-btn layui-btn-sm" id="button-upload" style="margin-bottom: 10px"><i class="layui-icon"></i>上传文件</button>
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">输入文件</label>
+                                                <div class="layui-input-block">
+                                                    <input id="input_file" name="input_file" class="layui-input" placeholder="请点击上传文件按钮进行上传" lay-verify="required">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">x轴列名</label>
+                                                <div id="div_x" class="layui-input-block">
+                                                    <input id="x" name="x" class="layui-input" lay-verify="required" placeholder="x轴数据所在列名">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">y轴列名</label>
+                                                <div id="div_y" class="layui-input-block">
+                                                    <input id="y" name="y" class="layui-input" lay-verify="required" placeholder="y轴数据所在列名">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 20px; color: #880e4f; font-weight: bold">图片输出</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">文件名</label>
+                                                <div class="layui-input-block">
+                                                    <input name="output_name" class="layui-input" placeholder="" value="DotPlot">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">高度</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="output_height" class="layui-input" value=6>
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">宽度</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="output_width" class="layui-input"  value=8>
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">单位</label>
+                                                <div class="layui-input-block">
+                                                    <select name="output_units" lay-verify="required">
+                                                        <option value="in" selected>in</option>
+                                                        <option value="cm">cm</option>
+                                                        <option value="mm">mm</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">dpi</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="output_dpi" class="layui-input" value=300>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 20px; color: #880e4f; font-weight: bold">主题</legend>
+                                        </fieldset>
+
+                                    <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">主题</label>
+                                                <div class="layui-input-block">
+                                                    <select name="plot_themes">
+                                                        <option value=""></option>
+                                                        {% for value in plot_themes %}
+                                                            <option value="{{ value }}">{{ value }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 20px; color: #880e4f; font-weight: bold">全局色彩搭配</legend>
+                                        </fieldset>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">边框色</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">离散色主题</label>
+                                                <div class="layui-input-block">
+                                                    <select name="color_qual_theme">
+                                                        <option value=""></option>
+                                                        {% for value in color_qual %}
+                                                            <option value="{{ value }}">{{ value }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                        <div class="layui-col-lg6">
+                                                <label class="layui-form-label">连续色主题</label>
+                                                <div class="layui-input-block">
+                                                    <select name="color_seq_theme">
+                                                        <option value=""></option>
+                                                        {% for value in color_seq %}
+                                                            <option value="{{ value }}">{{ value }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">离散自定</label>
+                                                <div class="layui-input-inline" style="width: 110px">
+                                                    <input type="text" id="color_qual_self" name="color_qual_self" class="layui-input" placeholder="" value="">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-color_qual_self"></div>
+                                                </div>
+                                            </div>
+
+
+
+                                        <div class="layui-col-lg6">
+                                                <label class="layui-form-label">连续自定</label>
+                                                <div class="layui-input-inline" style="width: 110px">
+                                                    <input type="text" id="color_seq_self" name="color_seq_self" class="layui-input" placeholder="" value="">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-color_seq_self"></div>
+                                                </div>
+                                            </div>
+
+                                    <div class="layui-col-lg6">
+                                                <label class="layui-form-label">连续中点</label>
+                                                <div class="layui-input-block">
+                                                    <input class="layui-input" name="color_seq_value" value=0>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">填充色</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">离散色主题</label>
+                                                <div class="layui-input-block">
+                                                    <select name="fill_qual_theme">
+                                                        <option value=""></option>
+                                                        {% for value in color_seq %}
+                                                            <option value="{{ value }}">{{ value }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        <div class="layui-col-lg6">
+                                                <label class="layui-form-label">连续色主题</label>
+                                                <div class="layui-input-block">
+                                                    <select name="fill_seq_theme">
+                                                        <option value=""></option>
+                                                        {% for value in color_qual %}
+                                                            <option value="{{ value }}">{{ value }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                         <div class="layui-col-lg6">
+                                                <label class="layui-form-label">离散自定</label>
+                                                <div class="layui-input-inline" style="width: 110px">
+                                                    <input type="text" id="fill_qual_self" name="fill_qual_self" class="layui-input" placeholder="" value="">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-fill_qual_self"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">连续自定</label>
+                                                <div class="layui-input-inline" style="width: 110px">
+                                                    <input type="text" id="fill_seq_self" name="fill_seq_self" class="layui-input" placeholder="" value="">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-fill_seq_self"></div>
+                                                </div>
+                                            </div>
+
+
+
+
+
+                                    <div class="layui-col-lg6">
+                                                <label class="layui-form-label">连续边界</label>
+                                                <div class="layui-input-block">
+                                                    <input class="layui-input" name="fill_seq_value">
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+
+
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 20px; color: #880e4f; font-weight: bold">分组</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">group</label>
+                                                <div id="div_group" class="layui-input-block">
+                                                    <input name="group" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">color</label>
+                                                <div id="div_group_color" class="layui-input-block">
+                                                    <input name="group_color" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 20px; color: #880e4f; font-weight: bold">分面</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">列分面列名</label>
+                                                <div id="div_col_facets" class="layui-input-block">
+                                                    <input name="col_facets" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">行分面列名</label>
+                                                <div id="div_row_facets" class="layui-input-block">
+                                                    <input name="row_facets" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">行数</label>
+                                                <div id="div_facets_nrow" class="layui-input-block">
+                                                    <input type="number" name="facets_nrow" class="layui-input">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">列数</label>
+                                                <div id="div_facets_ncol" class="layui-input-block">
+                                                    <input type="number" name="facets_ncol" class="layui-input">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">坐标自由</label>
+
+                                                    <div class="layui-input-block">
+                                                    <select name="facets_scales">
+                                                        <option value=""></option>
+                                                        <option value="free_x">free_x</option>
+                                                        <option value="free_y">free_y</option>
+                                                        <option value="free">free</option>
+
+                                                    </select>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+{##}
+{#                                    <fieldset class="layui-elem-field layui-field-title">#}
+{#                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">X分面字体</legend>#}
+{#                                        </fieldset>#}
+{##}
+{#                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">#}
+{##}
+{#                                                 <div class="layui-col-lg6">#}
+{#                                                    <label class="layui-form-label">family</label>#}
+{#                                                    <div class="layui-input-block">#}
+{#                                                        <select name="facets_text_x_family">#}
+{#                                                            <option value=""></option>#}
+{#                                                            {% for font in family  %}#}
+{#                                                                <option value="{{ font }}">{{ font }}</option>#}
+{#                                                            {% endfor %}#}
+{#                                                        </select>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class="layui-col-lg6">#}
+{#                                                    <label class="layui-form-label">size</label>#}
+{#                                                    <div class="layui-input-block">#}
+{#                                                        <input type="number" name="facets_text_x_size" class="layui-input" placeholder="">#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class="layui-col-lg6">#}
+{#                                                    <label class="layui-form-label">face</label>#}
+{#                                                    <div class="layui-input-block">#}
+{#                                                        <select name="facets_text_x_face">#}
+{#                                                            <option value=""></option>#}
+{#                                                            {% for value in face  %}#}
+{#                                                                <option value="{{ value }}">{{ value }}</option>#}
+{#                                                            {% endfor %}#}
+{#                                                        </select>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class="layui-col-lg6">#}
+{#                                                    <label class="layui-form-label">color</label>#}
+{#                                                    <div class="layui-input-inline" style="width: 110px">#}
+{#                                                        <input type="text" id="facets_text_x_color" name="facets_text_x_color" class="layui-input" placeholder="">#}
+{#                                                    </div>#}
+{#                                                    <div class="layui-inline" style="left: -10px;">#}
+{#                                                        <div id="colorpicker-facets_text_x_color"></div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class="layui-col-lg6">#}
+{#                                                    <label class="layui-form-label">vjust</label>#}
+{#                                                    <div class="layui-input-block">#}
+{#                                                        <input type="number" step="0.01" name="facets_text_x_vjust" class="layui-input" placeholder="">#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class="layui-col-lg6">#}
+{#                                                    <label class="layui-form-label">angle</label>#}
+{#                                                    <div class="layui-input-block">#}
+{#                                                        <input type="number" name="facets_text_x_angle" class="layui-input" placeholder="">#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                            </div>#}
+{##}
+{##}
+{#                                    <fieldset class="layui-elem-field layui-field-title">#}
+{#                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">X分面背景</legend>#}
+{#                                        </fieldset>#}
+{##}
+{#                                    <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">#}
+{##}
+{#                                            <div class="layui-col-lg6">#}
+{#                                                <label class="layui-form-label">fill</label>#}
+{#                                                <div class="layui-input-inline" style="width: 110px">#}
+{#                                                    <input type="text" id="facets_x_background_fill"  name="facets_x_background_fill" class="layui-input" placeholder="">#}
+{#                                                </div>#}
+{#                                                <div class="layui-inline" style="left: -10px;">#}
+{#                                                    <div id="colorpicker-facets_x_background_fill"></div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{##}
+{#                                             <div class="layui-col-lg6">#}
+{#                                                <label class="layui-form-label">color</label>#}
+{#                                                <div class="layui-input-inline" style="width: 110px">#}
+{#                                                    <input type="text" id="facets_x_background_color" name="facets_x_background_color" class="layui-input" placeholder="">#}
+{#                                                </div>#}
+{#                                                <div class="layui-inline" style="left: -10px;">#}
+{#                                                    <div id="colorpicker-facets_x_background_color"></div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{##}
+{#                                            <div class="layui-col-lg6">#}
+{#                                                <label class="layui-form-label">size</label>#}
+{#                                                <div class="layui-input-block">#}
+{#                                                    <input type="number" name="facets_x_background_size" class="layui-input" placeholder="">#}
+{#                                                </div>#}
+{#                                            </div>#}
+{##}
+{#                                             <div class="layui-col-lg6">#}
+{#                                                <label class="layui-form-label">linetype</label>#}
+{#                                                <div class="layui-input-block">#}
+{#                                                    <select name="facets_x_background_linetype">#}
+{#                                                        <option value=""></option>#}
+{#                                                        {% for value in linetype %}#}
+{#                                                            <option value="{{ value }}">{{ value }}</option>#}
+{#                                                        {% endfor %}#}
+{#                                                    </select>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{##}
+{#                                        </div>#}
+{##}
+{##}
+{#                                    <fieldset class="layui-elem-field layui-field-title">#}
+{#                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">Y分面字体</legend>#}
+{#                                        </fieldset>#}
+{##}
+{#                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">#}
+{##}
+{#                                                 <div class="layui-col-lg6">#}
+{#                                                    <label class="layui-form-label">family</label>#}
+{#                                                    <div class="layui-input-block">#}
+{#                                                        <select name="facets_text_y_family">#}
+{#                                                            <option value=""></option>#}
+{#                                                            {% for font in family  %}#}
+{#                                                                <option value="{{ font }}">{{ font }}</option>#}
+{#                                                            {% endfor %}#}
+{#                                                        </select>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class="layui-col-lg6">#}
+{#                                                    <label class="layui-form-label">size</label>#}
+{#                                                    <div class="layui-input-block">#}
+{#                                                        <input type="number" name="facets_text_y_size" class="layui-input" placeholder="">#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class="layui-col-lg6">#}
+{#                                                    <label class="layui-form-label">face</label>#}
+{#                                                    <div class="layui-input-block">#}
+{#                                                        <select name="facets_text_y_face">#}
+{#                                                            <option value=""></option>#}
+{#                                                            {% for value in face  %}#}
+{#                                                                <option value="{{ value }}">{{ value }}</option>#}
+{#                                                            {% endfor %}#}
+{#                                                        </select>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class="layui-col-lg6">#}
+{#                                                    <label class="layui-form-label">color</label>#}
+{#                                                    <div class="layui-input-inline" style="width: 110px">#}
+{#                                                        <input type="text" id="facets_text_y_color" name="facets_text_y_color" class="layui-input" placeholder="">#}
+{#                                                    </div>#}
+{#                                                    <div class="layui-inline" style="left: -10px;">#}
+{#                                                        <div id="colorpicker-facets_text_y_color"></div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class="layui-col-lg6">#}
+{#                                                    <label class="layui-form-label">vjust</label>#}
+{#                                                    <div class="layui-input-block">#}
+{#                                                        <input type="number" step="0.01" name="facets_text_y_hjust" class="layui-input" placeholder="">#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class="layui-col-lg6">#}
+{#                                                    <label class="layui-form-label">angle</label>#}
+{#                                                    <div class="layui-input-block">#}
+{#                                                        <input type="number" name="facets_text_y_angle" class="layui-input" placeholder="">#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                            </div>#}
+{##}
+{#                                    <fieldset class="layui-elem-field layui-field-title">#}
+{#                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">Y分面背景</legend>#}
+{#                                        </fieldset>#}
+{##}
+{#                                    <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">#}
+{##}
+{#                                            <div class="layui-col-lg6">#}
+{#                                                <label class="layui-form-label">fill</label>#}
+{#                                                <div class="layui-input-inline" style="width: 110px">#}
+{#                                                    <input type="text" id="facets_y_background_fill"  name="facets_y_background_fill" class="layui-input" placeholder="">#}
+{#                                                </div>#}
+{#                                                <div class="layui-inline" style="left: -10px;">#}
+{#                                                    <div id="colorpicker-facets_y_background_fill"></div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{##}
+{#                                             <div class="layui-col-lg6">#}
+{#                                                <label class="layui-form-label">color</label>#}
+{#                                                <div class="layui-input-inline" style="width: 110px">#}
+{#                                                    <input type="text" id="facets_y_background_color" name="facets_y_background_color" class="layui-input" placeholder="">#}
+{#                                                </div>#}
+{#                                                <div class="layui-inline" style="left: -10px;">#}
+{#                                                    <div id="colorpicker-facets_y_background_color"></div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{##}
+{#                                            <div class="layui-col-lg6">#}
+{#                                                <label class="layui-form-label">size</label>#}
+{#                                                <div class="layui-input-block">#}
+{#                                                    <input type="number" name="facets_y_background_size" class="layui-input" placeholder="">#}
+{#                                                </div>#}
+{#                                            </div>#}
+{##}
+{#                                             <div class="layui-col-lg6">#}
+{#                                                <label class="layui-form-label">linetype</label>#}
+{#                                                <div class="layui-input-block">#}
+{#                                                    <select name="facets_y_background_linetype">#}
+{#                                                        <option value=""></option>#}
+{#                                                        {% for value in linetype %}#}
+{#                                                            <option value="{{ value }}">{{ value }}</option>#}
+{#                                                        {% endfor %}#}
+{#                                                    </select>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{##}
+{#                                        </div>#}
+{##}
+{##}
+
+
+
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 20px; color: #880e4f; font-weight: bold">网格线和背景</legend>
+                                        </fieldset>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">整体背景</legend>
+                                        </fieldset>
+
+                                         <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">fill</label>
+                                                <div class="layui-input-inline" style="width: 110px">
+                                                    <input type="text" id="plot_background_fill" name="plot_background_fill" class="layui-input" placeholder="">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-plot_background_fill"></div>
+                                                </div>
+                                            </div>
+
+                                             <div class="layui-col-lg6">
+                                                <label class="layui-form-label">color</label>
+                                                <div class="layui-input-inline" style="width: 110px">
+                                                    <input type="text" id="plot_background_color" name="plot_background_color" class="layui-input" placeholder="">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-plot_background_color"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">size</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="plot_background_size" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                             <div class="layui-col-lg6">
+                                                <label class="layui-form-label">linetype</label>
+                                                <div class="layui-input-block">
+                                                    <select name="plot_background_linetype">
+                                                        <option value=""></option>
+                                                        {% for value in linetype %}
+                                                            <option value="{{ value }}">{{ value }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+
+
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">绘图区背景</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">fill</label>
+                                                <div class="layui-input-inline" style="width: 110px">
+                                                    <input type="text" id="panel_background_fill" name="panel_background_fill" class="layui-input" placeholder="">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-panel_background_fill"></div>
+                                                </div>
+                                            </div>
+
+                                             <div class="layui-col-lg6">
+                                                <label class="layui-form-label">color</label>
+                                                <div class="layui-input-inline" style="width: 110px">
+                                                    <input type="text" id="panel_background_color" name="panel_background_color" class="layui-input" placeholder="">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-panel_background_color"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">size</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="panel_background_size" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                             <div class="layui-col-lg6">
+                                                <label class="layui-form-label">linetype</label>
+                                                <div class="layui-input-block">
+                                                    <select name="panel_background_linetype">
+                                                        <option value=""></option>
+                                                        {% for value in linetype %}
+                                                            <option value="{{ value }}">{{ value }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">主要网格线</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">size</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="panel_grid_major_size" class="layui-input" placeholder="" step=0.01>
+                                                </div>
+                                            </div>
+
+                                             <div class="layui-col-lg6">
+                                                <label class="layui-form-label">linetype</label>
+                                                <div class="layui-input-block">
+                                                    <select name="panel_grid_major_linetype">
+                                                        <option value=""></option>
+                                                        {% for value in linetype %}
+                                                            <option value="{{ value }}">{{ value }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        <div class="layui-col-lg6">
+                                                <label class="layui-form-label">color</label>
+                                                <div class="layui-input-inline" style="width: 110px">
+                                                    <input type="text" id="panel_grid_major_color" name="panel_grid_major_color" class="layui-input" placeholder="">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-panel_grid_major_color"></div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">次要网格线</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">size</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="panel_grid_minor_size" class="layui-input" placeholder="" step=0.01>
+                                                </div>
+                                            </div>
+
+                                             <div class="layui-col-lg6">
+                                                <label class="layui-form-label">linetype</label>
+                                                <div class="layui-input-block">
+                                                    <select name="panel_grid_minor_linetype">
+                                                        <option value=""></option>
+                                                        {% for value in linetype %}
+                                                            <option value="{{ value }}">{{ value }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        <div class="layui-col-lg6">
+                                                <label class="layui-form-label">color</label>
+                                                <div class="layui-input-inline" style="width: 110px">
+                                                    <input type="text" id="panel_grid_minor_color" name="panel_grid_minor_color" class="layui-input" placeholder="">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-panel_grid_minor_color"></div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 20px; color: #880e4f; font-weight: bold">坐标系</legend>
+                                        </fieldset>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">全局字体</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                             <div class="layui-col-lg6">
+                                                <label class="layui-form-label">family</label>
+                                                <div class="layui-input-block">
+                                                    <select name="text_family">
+                                                        <option value=""></option>
+                                                        {% for font in family  %}
+                                                            <option value="{{ font }}">{{ font }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">size</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="text_size" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">face</label>
+                                                <div class="layui-input-block">
+                                                    <select name="text_face">
+                                                        <option value=""></option>
+                                                        {% for value in face  %}
+                                                            <option value="{{ value }}">{{ value }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">color</label>
+                                                <div class="layui-input-inline" style="width: 110px">
+                                                    <input type="text" id="text_color" name="text_color" class="layui-input" placeholder="">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-text_color"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">vjust</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" step="0.01" name="text_vjust" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">angle</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="text_angle" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">x轴字体</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">隐藏</label>
+                                                    <div class="layui-input-block">
+                                                        <select name="text_x_blank">
+                                                            <option value="false" selected>不隐藏</option>
+                                                            <option value="true">隐藏</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                 <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">family</label>
+                                                    <div class="layui-input-block">
+                                                        <select name="text_x_family">
+                                                            <option value=""></option>
+                                                            {% for font in family  %}
+                                                                <option value="{{ font }}">{{ font }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">size</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" name="text_x_size" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">face</label>
+                                                    <div class="layui-input-block">
+                                                        <select name="text_x_face">
+                                                            <option value=""></option>
+                                                            {% for value in face  %}
+                                                                <option value="{{ value }}">{{ value }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">vjust</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" step="0.01" name="text_x_vjust" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">hjust</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" step="0.01" name="text_x_hjust" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">color</label>
+                                                    <div class="layui-input-inline" style="width: 110px">
+                                                        <input type="text" id="text_x_color" name="text_x_color" class="layui-input" placeholder="">
+                                                    </div>
+                                                    <div class="layui-inline" style="left: -10px;">
+                                                        <div id="colorpicker-text_x_color"></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">angle</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" name="text_x_angle" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">y轴字体</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                            <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">隐藏</label>
+                                                    <div class="layui-input-block">
+                                                        <select name="text_y_blank">
+                                                            <option value="false" selected>不隐藏</option>
+                                                            <option value="true">隐藏</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                            <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">family</label>
+                                                    <div class="layui-input-block">
+                                                        <select name="text_y_family">
+                                                            <option value=""></option>
+                                                            {% for font in family  %}
+                                                                <option value="{{ font }}">{{ font }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">size</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" name="text_y_size" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">face</label>
+                                                    <div class="layui-input-block">
+                                                        <select name="text_y_face">
+                                                            <option value=""></option>
+                                                            {% for value in face  %}
+                                                                <option value="{{ value }}">{{ value }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">vjust</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" step="0.01" name="text_y_vjust" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">hjust</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" step="0.01" name="text_y_hjust" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">angle</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" name="text_y_angle" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                        <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">color</label>
+                                                    <div class="layui-input-inline" style="width: 110px">
+                                                        <input type="text" id="text_y_color" name="text_y_color" class="layui-input" placeholder="">
+                                                    </div>
+                                                    <div class="layui-inline" style="left: -10px;">
+                                                        <div id="colorpicker-text_y_color"></div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">坐标轴线</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">size</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="axis_line_size" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">linetype</label>
+                                                <div class="layui-input-block">
+                                                    <select name="axis_line_linetype">
+                                                        <option value=""></option>
+                                                        {% for value in linetype %}
+                                                            <option value="{{ value }}">{{ value }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        <div class="layui-col-lg6">
+                                                <label class="layui-form-label">color</label>
+                                                <div class="layui-input-inline" style="width: 110px">
+                                                    <input type="text" id="axis_line_color" name="axis_line_color" class="layui-input" placeholder="">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-axis_line_color"></div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">坐标刻度</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">size</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="axis_ticks_size" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">linetype</label>
+                                                <div class="layui-input-block">
+                                                    <select name="axis_ticks_linetype">
+                                                        <option value=""></option>
+                                                        {% for value in linetype %}
+                                                            <option value="{{ value }}">{{ value }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        <div class="layui-col-lg6">
+                                                <label class="layui-form-label">color</label>
+                                                <div class="layui-input-inline" style="width: 110px">
+                                                    <input type="text" id="axis_ticks_color" name="axis_ticks_color" class="layui-input" placeholder="">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-axis_ticks_color"></div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 20px; color: #880e4f; font-weight: bold">标题</legend>
+                                        </fieldset>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">标题内容</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">title</label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="labs_title" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">x_title</label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="labs_x" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">y_title</label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="labs_y" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">color label</label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="labs_color" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">fill label</label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="labs_fill" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">size label</label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="labs_size" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">linetype label</label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="labs_linetype" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">shape label</label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="labs_shape" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">alpha label</label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="labs_alpha" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">Title格式</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                                 <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">family</label>
+                                                    <div class="layui-input-block">
+                                                        <select name="plot_title_family">
+                                                            <option value=""></option>
+                                                            {% for font in family  %}
+                                                                <option value="{{ font }}">{{ font }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">size</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" name="plot_title_size" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">face</label>
+                                                    <div class="layui-input-block">
+                                                        <select name="plot_title_face">
+                                                            <option value=""></option>
+                                                            {% for value in face  %}
+                                                                <option value="{{ value }}">{{ value }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">vjust</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" step="0.01" name="plot_title_vjust" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">hjust</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" step="0.01" name="plot_title_hjust" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">angle</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" name="plot_title_angle" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                        <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">color</label>
+                                                    <div class="layui-input-inline" style="width: 110px">
+                                                        <input type="text" id="plot_title_color" name="plot_title_color" class="layui-input" placeholder="">
+                                                    </div>
+                                                    <div class="layui-inline" style="left: -10px;">
+                                                        <div id="colorpicker-plot_title_color"></div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">X轴标题格式</legend>
+                                        </fieldset>
+
+                                    <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                                 <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">family</label>
+                                                    <div class="layui-input-block">
+                                                        <select name="aixs_title_x_family">
+                                                            <option value=""></option>
+                                                            {% for font in family  %}
+                                                                <option value="{{ font }}">{{ font }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">size</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" name="aixs_title_x_size" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">face</label>
+                                                    <div class="layui-input-block">
+                                                        <select name="aixs_title_x_face">
+                                                            <option value=""></option>
+                                                            {% for value in face  %}
+                                                                <option value="{{ value }}">{{ value }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">vjust</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" step="0.01" name="aixs_title_x_vjust" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">hjust</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" step="0.01" name="aixs_title_x_hjust" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">angle</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" name="aixs_title_x_angle" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                               <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">color</label>
+                                                    <div class="layui-input-inline" style="width: 110px">
+                                                        <input type="text" id="aixs_title_x_color" name="aixs_title_x_color" class="layui-input" placeholder="">
+                                                    </div>
+                                                    <div class="layui-inline" style="left: -10px;">
+                                                        <div id="colorpicker-aixs_title_x_color"></div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                       <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">Y轴标题格式</legend>
+                                        </fieldset>
+
+                                    <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                                 <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">family</label>
+                                                    <div class="layui-input-block">
+                                                        <select name="aixs_title_y_family">
+                                                            <option value=""></option>
+                                                            {% for font in family  %}
+                                                                <option value="{{ font }}">{{ font }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">size</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" name="aixs_title_y_size" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">face</label>
+                                                    <div class="layui-input-block">
+                                                        <select name="aixs_title_y_face">
+                                                            <option value=""></option>
+                                                            {% for value in face  %}
+                                                                <option value="{{ value }}">{{ value }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">vjust</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" step="0.01" name="aixs_title_y_vjust" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">hjust</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" step="0.01" name="aixs_title_y_hjust" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">angle</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" name="aixs_title_y_angle" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                               <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">color</label>
+                                                    <div class="layui-input-inline" style="width: 110px">
+                                                        <input type="text" id="aixs_title_y_color" name="aixs_title_y_color" class="layui-input" placeholder="">
+                                                    </div>
+                                                    <div class="layui-inline" style="left: -10px;">
+                                                        <div id="colorpicker-aixs_title_y_color"></div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+
+
+
+
+
+
+
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 20px; color: #880e4f; font-weight: bold">图例</legend>
+                                        </fieldset>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">图例位置</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">direction</label>
+                                                <div class="layui-input-block">
+                                                    <select name="legend_direction">
+                                                        <option value=""></option>
+                                                        {% for value in direction  %}
+                                                            <option value="{{ value }}">{{ value }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">position</label>
+                                                <div class="layui-input-block">
+                                                    <select name="legend_position">
+                                                        <option value=""></option>
+                                                        {% for value in position  %}
+                                                            <option value="{{ value }}">{{ value }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">position_x</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" step="0.1" name="legend_position_x" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">position_y</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" step="0.1" name="legend_position_y" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">图例标题文字格式</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                                 <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">family</label>
+                                                    <div class="layui-input-block">
+                                                        <select name="legend_title_family">
+                                                            <option value=""></option>
+                                                            {% for font in family  %}
+                                                                <option value="{{ font }}">{{ font }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">size</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" name="legend_title_size" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">face</label>
+                                                    <div class="layui-input-block">
+                                                        <select name="legend_title_face">
+                                                            <option value=""></option>
+                                                            {% for value in face  %}
+                                                                <option value="{{ value }}">{{ value }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">color</label>
+                                                    <div class="layui-input-inline" style="width: 110px">
+                                                        <input type="text" id="legend_title_color" name="legend_title_color" class="layui-input" placeholder="">
+                                                    </div>
+                                                    <div class="layui-inline" style="left: -10px;">
+                                                        <div id="colorpicker-legend_title_color"></div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">图例内容文字格式</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                                 <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">family</label>
+                                                    <div class="layui-input-block">
+                                                        <select name="legend_text_family">
+                                                            <option value=""></option>
+                                                            {% for font in family  %}
+                                                                <option value="{{ font }}">{{ font }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">size</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" name="legend_text_size" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">face</label>
+                                                    <div class="layui-input-block">
+                                                        <select name="legend_text_face">
+                                                            <option value=""></option>
+                                                            {% for value in face  %}
+                                                                <option value="{{ value }}">{{ value }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">color</label>
+                                                    <div class="layui-input-inline" style="width: 110px">
+                                                        <input type="text" id="legend_text_color" name="legend_text_color" class="layui-input" placeholder="">
+                                                    </div>
+                                                    <div class="layui-inline" style="left: -10px;">
+                                                        <div id="colorpicker-legend_text_color"></div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">图例背景</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">fill</label>
+                                                <div class="layui-input-inline" style="width: 110px">
+                                                    <input type="text" id="legend_background_fill" name="legend_background_fill" class="layui-input" placeholder="">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-legend_background_fill"></div>
+                                                </div>
+                                            </div>
+
+                                             <div class="layui-col-lg6">
+                                                <label class="layui-form-label">color</label>
+                                                <div class="layui-input-inline" style="width: 110px">
+                                                    <input type="text" id="legend_background_color" name="legend_background_color" class="layui-input" placeholder="">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-legend_background_color"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">size</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="legend_background_size" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                             <div class="layui-col-lg6">
+                                                <label class="layui-form-label">linetype</label>
+                                                <div class="layui-input-block">
+                                                    <select name="legend_background_linetype">
+                                                        <option value=""></option>
+                                                        {% for value in linetype %}
+                                                            <option value="{{ value }}">{{ value }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 16px; color: #53A515; font-weight: bold">legends keys</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">fill</label>
+                                                <div class="layui-input-inline" style="width: 110px">
+                                                    <input type="text" id="legend_keys_fill" name="legend_keys_fill" class="layui-input" placeholder="">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-legend_keys_fill"></div>
+                                                </div>
+                                            </div>
+
+                                             <div class="layui-col-lg6">
+                                                <label class="layui-form-label">color</label>
+                                                <div class="layui-input-inline" style="width: 110px">
+                                                    <input type="text" id="legend_keys_color" name="legend_keys_color" class="layui-input" placeholder="">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-legend_keys_color"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">size</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="legend_keys_size" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                             <div class="layui-col-lg6">
+                                                <label class="layui-form-label">linetype</label>
+                                                <div class="layui-input-block">
+                                                    <select name="legend_keys_linetype">
+                                                        <option value=""></option>
+                                                        {% for value in linetype %}
+                                                            <option value="{{ value }}">{{ value }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 20px; color: #880e4f; font-weight: bold">副标题</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">content</label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="subtitle_content" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                                 <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">family</label>
+                                                    <div class="layui-input-block">
+                                                        <select name="subtitle_family">
+                                                            <option value=""></option>
+                                                            {% for font in family  %}
+                                                                <option value="{{ font }}">{{ font }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">size</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" name="subtitle_size" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">face</label>
+                                                    <div class="layui-input-block">
+                                                        <select name="subtitle_face">
+                                                            <option value=""></option>
+                                                            {% for value in face  %}
+                                                                <option value="{{ value }}">{{ value }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">color</label>
+                                                    <div class="layui-input-inline" style="width: 110px">
+                                                        <input type="text" id="subtitle_color" name="subtitle_color" class="layui-input" placeholder="">
+                                                    </div>
+                                                    <div class="layui-inline" style="left: -10px;">
+                                                        <div id="colorpicker-subtitle_color"></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-lg6">
+                                                    <label class="layui-form-label">hjust</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="number" step="0.25" name="subtitle_hjust" class="layui-input" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 20px; color: #880e4f; font-weight: bold">脚注</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">content</label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="caption_content" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                             <div class="layui-col-lg6">
+                                                <label class="layui-form-label">family</label>
+                                                <div class="layui-input-block">
+                                                    <select name="caption_family">
+                                                        <option value=""></option>
+                                                        {% for font in family  %}
+                                                            <option value="{{ font }}">{{ font }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">size</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="caption_size" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">face</label>
+                                                <div class="layui-input-block">
+                                                    <select name="caption_face">
+                                                        <option value=""></option>
+                                                        {% for value in face  %}
+                                                            <option value="{{ value }}">{{ value }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">color</label>
+                                                <div class="layui-input-inline" style="width: 110px">
+                                                    <input type="text" id="caption_color" name="caption_color" class="layui-input" placeholder="">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-caption_color"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">hjust</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" step="0.25" name="caption_hjust" class="layui-input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="layui-col-md7">
+            <div class="layui-tab layui-tab-brief layui-bg-white">
+                <ul class="layui-tab-title">
+                    <li id="tab-title-rslt">分析结果</li>
+                    <li id="tab-title-help" class="layui-this">说明文档</li>
+                </ul>
+
+                <div id="rslt-div" class="layui-tab-content" style="height: 600px">
+                    <div id="tab-item-rslt" class="layui-tab-item" style="background-size: contain;">
+                       <img id="img-rslt" layer-src="" src="{% static 'img/no_images.png' %}" style="margin: 0 auto; vertical-align: middle; text-align: center;display: table-cell;">
+                    </div>
+
+                    <div id="tab-item-help" class="layui-tab-item  layui-show">
+                        <iframe id="iframe-body"  src="{% url 'plot_line_doc' %}" style="height: 600px; width: 100%" frameborder="0"></iframe>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+<script src="{% static '/js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static '/layuiadmin/layui/layui.js' %}"></script>
+<script src="{% static '/js/bio_plot.js' %}"></script>
+
+<script>
+    // iframe和图片自适应
+       function FrameWH() {
+           let h = document.getElementById("rslt-div").clientHeight - 20;
+           let w = document.getElementById("rslt-div").clientWidth - 20;
+           document.getElementById("img-rslt").setAttribute("height", h + "px");
+
+           document.getElementById("iframe-body").setAttribute("height", h + "px");
+           document.getElementById("iframe-body").setAttribute("width", w + "px");
+       }
+       FrameWH();
+       $(window).resize(function () {
+           FrameWH();
+       });
+</script>
+
+<script>
+
+    layui.config({
+        base: '{% static "layuiadmin/" %}'
+    }).extend({
+        index: 'lib/index',
+    }).use(['index', 'form', 'table', 'upload', 'colorpicker'], function(){
+        let $ = layui.$
+            ,layer = layui.layer
+            ,upload = layui.upload
+            ,colorpicker = layui.colorpicker
+            ,form = layui.form;
+
+
+        $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
+
+
+
+       // 监听文件input列，若改动则，修改列名
+        function alterCol(columns, div_id, select_name){
+            let content = '<select name="' + select_name + '">\n<option value=""></option>\n';
+            for (let i = 0; i < columns.length; ++i) {
+                content += '<option value="' + columns[i] + '">' + columns[i] + '</option>\n'
+            }
+            content += '</select>';
+            document.getElementById(div_id).innerHTML = content;
+            form.render('select');
+        }
+
+        function alterColumns(columns){
+            alterCol(columns, "div_x", "x");
+            alterCol(columns, "div_y", "y");
+            alterCol(columns, "div_y", "y");
+            alterCol(columns, "div_group", "group");
+            alterCol(columns, "div_group_color", "group_color");
+            alterCol(columns, "div_col_facets", "col_facets");
+            alterCol(columns, "div_row_facets", "row_facets");
+        }
+
+        $("#input_file").change(function () {
+            $.ajax({
+                url: "{% url 'backstage:file_columns' %}?file=" + $("#input_file").val()
+                ,type: "get"
+                ,success: function (data) {
+                    alterColumns(data["columns"])
+                }
+            })
+        });
+
+
+       // 提交表单，绘制图片，当必要数据不存在是，默认不提交
+        function plotDot(){
+            let data = form.val("form");
+            if (data.input_file !== "" && data.x !== "" && data.y !== ""){
+                $.ajax({
+                    url: '{% url "backstage:plot_line" %}'
+                    ,data: data
+                    ,type: "post"
+                    ,beforeSend: function () {
+                        layer.load(1, {offset: ['300px', '1100px'], shade: [0.2, '#393D49']});
+                        $("#tab-item-help").removeClass("layui-show");
+                        $("#tab-title-help").removeClass("layui-this");
+                        $("#tab-title-rslt").addClass("layui-this");
+                        $("#tab-item-rslt").addClass("layui-show");
+                    }
+                    ,success: function (data) {
+                        switch (data.code) {
+                            case 1:
+                                layer.msg(data.msg);
+                                break;
+
+                            case 0:
+
+                                document.getElementById("img-rslt").setAttribute("src", "{% url 'backstage:get_file' %}?path=" + data["f_output"]);
+                                document.getElementById("img-rslt").setAttribute("layer-src", "{% url 'backstage:get_file' %}?path=" + data["f_output"]);
+                                break;
+
+                        }
+                    }
+                    ,complete: function () {
+                        layer.closeAll();
+                    }
+                })
+            }
+        }
+
+       // 上传数据
+        upload.render({
+            elem: '#button-upload'
+            ,accept: "file"
+            ,exts: "xls|xlsx|csv|txt|tsv"
+            ,url: '{% url "backstage:upload_file" %}'
+            ,done: function(res){
+                document.getElementById("input_file").setAttribute("value", res["file"]);
+
+                $.ajax({
+                    url: "{% url 'backstage:file_columns' %}?file=" + $("#input_file").val()
+                    ,type: "get"
+                    ,success: function (data) {
+                        alterColumns(data["columns"])
+                    }
+                });
+                plotDot()
+            }
+            ,error: function(){
+                layer.msg("上传失败")
+            }
+        });
+
+        // 事件监听，实时画图
+        let inputs = $("input");
+        inputs.each(function(){
+            $(this).change("input", function () {plotDot()})
+        });
+        form.on('checkbox()', function(data){
+            plotDot()
+        });
+        form.on('select()', function(data){
+            plotDot()
+        });
+
+
+        // 点击显示原图
+        $("#img-rslt").click(function () {
+            layer.photos({
+                photos: '#tab-item-rslt'
+                ,anim: 5
+                ,shade: [0.2, '#393D49']
+              });
+        });
+
+
+        // 颜色框
+        function colorPicker(elem, id){
+            colorpicker.render({
+                elem: elem
+                , color: '#1c97f5'
+                , done: function (color) {
+                    $(id).val(color);
+                    plotDot()
+                }
+            });
+        }
+
+        function colorPickerAdd(elem, id){
+            colorpicker.render({
+                elem: elem
+                , color: '#1c97f5'
+                , done: function (color) {
+                    let value = document.getElementById(id).value;
+                    if (value === ""){
+                        $("#" + id).val(color);
+                    }else{
+                        $("#" + id).val(value + ',' + color);
+                    }
+                    plotDot()
+
+                }
+            });
+        }
+
+        colorPicker('#colorpicker-plot_background_fill', '#plot_background_fill');
+        colorPicker('#colorpicker-plot_background_color', '#plot_background_color');
+        colorPicker('#colorpicker-panel_background_fill', '#panel_background_fill');
+        colorPicker('#colorpicker-panel_background_color', '#panel_background_color');
+        colorPicker('#colorpicker-panel_grid_minor_color', '#panel_grid_minor_color');
+        colorPicker('#colorpicker-panel_grid_major_color', '#panel_grid_major_color');
+        colorPicker('#colorpicker-text_color', '#text_color');
+        colorPicker('#colorpicker-text_y_color', '#text_y_color');
+        colorPicker('#colorpicker-text_x_color', '#text_x_color');
+        colorPicker('#colorpicker-axis_ticks_color', '#axis_ticks_color');
+        colorPicker('#colorpicker-axis_line_color', '#axis_line_color');
+        colorPicker('#colorpicker-plot_title_color', '#plot_title_color');
+        colorPicker('#colorpicker-aixs_title_color', '#aixs_title_color');
+        colorPicker('#colorpicker-aixs_title_x_color', '#aixs_title_x_color');
+        colorPicker('#colorpicker-aixs_title_y_color', '#aixs_title_y_color');
+        colorPicker('#colorpicker-legend_background_fill', '#legend_background_fill');
+        colorPicker('#colorpicker-legend_background_color', '#legend_background_color');
+        colorPicker('#colorpicker-legend_keys_fill', '#legend_keys_fill');
+        colorPicker('#colorpicker-legend_keys_color', '#legend_keys_color');
+        colorPicker('#colorpicker-caption_color', '#caption_color');
+        colorPicker('#colorpicker-subtitle_color', '#subtitle_color');
+
+        colorPickerAdd('#colorpicker-color_seq_self', 'color_seq_self');
+        colorPickerAdd('#colorpicker-color_qual_self', 'color_qual_self');
+        colorPickerAdd('#colorpicker-fill_qual_self', 'fill_qual_self');
+        colorPickerAdd('#colorpicker-fill_seq_self', 'fill_seq_self');
+
+        colorPicker('#colorpicker-point_color', '#point_color');
+        colorPicker('#colorpicker-point_fill', '#point_fill');
+        colorPicker('#colorpicker-facets_text_x_color', '#facets_text_x_color');
+        colorPicker('#colorpicker-facets_text_y_color', '#facets_text_y_color');
+        colorPicker('#colorpicker-facets_y_background_fill', '#facets_y_background_fill');
+        colorPicker('#colorpicker-facets_y_background_color', '#facets_y_background_color');
+
+
+
+
+
+    });
+  </script>
+</body>
+</html>

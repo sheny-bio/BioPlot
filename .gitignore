@@ -1,0 +1,14 @@
+# ---> Python
+# Byte-compiled / optimized / DLL files
+*__pycache__
+BioPlot/__pycache__
+backstage/__pycache__
+static/tmp/
+*.py[cod]
+*$py.class
+Rplots.pdf
+static_root/temp/
+static/temp/
+Tmp/
+Log/
+log/

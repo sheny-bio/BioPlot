@@ -1,0 +1,27 @@
+p.big-font{
+    font-size: 36px;
+    color: #666;
+    line-height: 36px;
+    padding: 5px 0 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    white-space: nowrap;
+}
+
+.badge{
+    top: 50%;
+    margin-top: -9px;
+    position: absolute;
+    right: 15px;
+}
+
+.span-tab {
+    position: absolute;
+    right: 10px;
+}
+
+table.ttt{
+    border: #0000FF;
+}
+

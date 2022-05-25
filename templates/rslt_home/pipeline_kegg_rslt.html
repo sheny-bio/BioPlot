@@ -1,0 +1,295 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>MUT CNV</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="{% static 'layuiadmin/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'layuiadmin/style/admin.css' %}" media="all">
+</head>
+
+<style>
+    .layui-table-tool {background-color: #FEFFFF;}
+            .layui-table {
+        width:100%;
+        margin:15px 0;
+        border:0;
+    }
+
+    .layui-table th {
+        background-color:#C3E7FA;
+        color:#000000
+    }
+    .layui-table th,.layui-table td {
+        border: 1px solid #dcf1fc;
+        border-width:1px 0 1px 0
+    }
+    .layui-table tr {
+        border: 1px solid #dcf1fc;
+    }
+    .layui-table tr:nth-child(odd){
+        background-color:#ebf7fd;
+    }
+    .layui-table tr:nth-child(even){
+        background-color:#fdfdfd;
+    }
+    .layui-table-view .layui-table[lay-size=sm] .layui-table-cell {
+        height: 26px;
+        line-height: 20px;
+    }
+    .layui-card-header {
+        font-size: 24px;
+        font-weight: bold;
+        color: #009688;
+    }
+</style>
+
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row  layui-col-space10" style="padding-left: 40px; padding-right: 40px">
+
+            <a id="download" href="" class="layui-btn layui-btn-normal" style="margin-bottom: 10px">下载结果</a>
+
+        <div  id="rslt-div" class="layui-card">
+            <div class="layui-card-header">KEGG_ALL</div>
+            <div class="layui-card-body" style="width: 600px">
+                <div id="div_kegg_all_bg" style="">
+                    <img id="img_kegg_all_bg" src="{% static 'img/no_images.png' %}" style="margin: 0 auto;">
+                </div>
+                <div id="div_kegg_all" style="display:none">
+                    <iframe id="img_kegg_all" src="" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-card">
+            <div class="layui-card-header">KEGG_TOP20</div>
+            <div class="layui-card-body" style="width: 600px">
+                <div id="div_kegg_top20_bg" style="">
+                    <img id="img_kegg_top20_bg" src="{% static 'img/no_images.png' %}" style="margin: 0 auto;">
+                </div>
+                <div id="div_kegg_top20" style="display:none">
+                    <iframe id="img_kegg_top20" src="" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-card">
+            <div class="layui-card-header">GO_BP_ALL</div>
+            <div class="layui-card-body" style="width: 600px">
+                <div id="div_go_bp_all_bg" style="">
+                    <img id="img_go_bp_all_bg" src="{% static 'img/no_images.png' %}" style="margin: 0 auto;">
+                </div>
+                <div id="div_go_bp_all" style="display:none">
+                    <iframe id="img_go_bp_all" src="" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-card">
+            <div class="layui-card-header">GO_BP_TOP20</div>
+            <div class="layui-card-body" style="width: 600px">
+                <div id="div_go_bp_top20_bg" style="">
+                    <img id="img_go_bp_top20_bg" src="{% static 'img/no_images.png' %}" style="margin: 0 auto;">
+                </div>
+                <div id="div_go_bp_top20" style="display:none">
+                    <iframe id="img_go_bp_top20" src="" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-card">
+            <div class="layui-card-header">GO_CC_ALL</div>
+            <div class="layui-card-body" style="width: 600px">
+                <div id="div_go_cc_all_bg" style="">
+                    <img id="img_go_cc_all_bg" src="{% static 'img/no_images.png' %}" style="margin: 0 auto;">
+                </div>
+                <div id="div_go_cc_all" style="display:none">
+                    <iframe id="img_go_cc_all" src="" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-card">
+            <div class="layui-card-header">GO_CC_TOP20</div>
+            <div class="layui-card-body" style="width: 600px">
+                <div id="div_go_cc_top20_bg" style="">
+                    <img id="img_go_cc_top20_bg" src="{% static 'img/no_images.png' %}" style="margin: 0 auto;">
+                </div>
+                <div id="div_go_cc_top20" style="display:none">
+                    <iframe id="img_go_cc_top20" src="" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-card">
+            <div class="layui-card-header">GO_MF_ALL</div>
+            <div class="layui-card-body" style="width: 600px">
+                <div id="div_go_mf_all_bg" style="">
+                    <img id="img_go_mf_all_bg" src="{% static 'img/no_images.png' %}" style="margin: 0 auto;">
+                </div>
+                <div id="div_go_mf_all" style="display:none">
+                    <iframe id="img_go_mf_all" src="" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-card">
+            <div class="layui-card-header">GO_MF_TOP20</div>
+            <div class="layui-card-body" style="width: 600px">
+                <div id="div_go_mf_top20_bg" style="">
+                    <img id="img_go_mf_top20_bg" src="{% static 'img/no_images.png' %}" style="margin: 0 auto;">
+                </div>
+                <div id="div_go_mf_top20" style="display:none">
+                    <iframe id="img_go_mf_top20" src="" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+    
+<script src="{% static '/js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static '/layuiadmin/layui/layui.js' %}"></script>
+<script src="{% static '/js/bio_plot.js' %}"></script>
+<script>
+
+    layui.config({
+        base: '{% static "layuiadmin/" %}'
+    }).extend({
+        index: 'lib/index',
+    }).use(['index', 'form', 'table'], function(){
+        let $ = layui.$
+            ,layer = layui.layer
+            ,table = layui.table
+            ,form = layui.form;
+
+        // get参数
+        function getUrlParam(name) {
+            let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            let r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return "null";
+        }
+
+        // iframe和图片自适应
+        function FrameWH() {
+            let h = document.getElementById("rslt-div").clientHeight - 20;
+            let w = document.getElementById("rslt-div").clientWidth - 40;
+            document.getElementById("img_kegg_all_bg").setAttribute("height", h + "px");
+            document.getElementById("img_kegg_all_bg").setAttribute("width", w + "px");
+            document.getElementById("img_kegg_all").setAttribute("height", h + "px");
+            document.getElementById("img_kegg_all").setAttribute("width", w + "px");
+
+            document.getElementById("img_kegg_top20_bg").setAttribute("height", h + "px");
+            document.getElementById("img_kegg_top20_bg").setAttribute("width", w + "px");
+            document.getElementById("img_kegg_top20").setAttribute("height", h + "px");
+            document.getElementById("img_kegg_top20").setAttribute("width", w + "px");
+
+            document.getElementById("img_go_bp_all_bg").setAttribute("height", h + "px");
+            document.getElementById("img_go_bp_all_bg").setAttribute("width", w + "px");
+            document.getElementById("img_go_bp_all").setAttribute("height", h + "px");
+            document.getElementById("img_go_bp_all").setAttribute("width", w + "px");
+
+            document.getElementById("img_go_bp_top20_bg").setAttribute("height", h + "px");
+            document.getElementById("img_go_bp_top20_bg").setAttribute("width", w + "px");
+            document.getElementById("img_go_bp_top20").setAttribute("height", h + "px");
+            document.getElementById("img_go_bp_top20").setAttribute("width", w + "px");
+
+            document.getElementById("img_go_cc_all_bg").setAttribute("height", h + "px");
+            document.getElementById("img_go_cc_all_bg").setAttribute("width", w + "px");
+            document.getElementById("img_go_cc_all").setAttribute("height", h + "px");
+            document.getElementById("img_go_cc_all").setAttribute("width", w + "px");
+
+            document.getElementById("img_go_cc_top20_bg").setAttribute("height", h + "px");
+            document.getElementById("img_go_cc_top20_bg").setAttribute("width", w + "px");
+            document.getElementById("img_go_cc_top20").setAttribute("height", h + "px");
+            document.getElementById("img_go_cc_top20").setAttribute("width", w + "px");
+
+            document.getElementById("img_go_mf_all_bg").setAttribute("height", h + "px");
+            document.getElementById("img_go_mf_all_bg").setAttribute("width", w + "px");
+            document.getElementById("img_go_mf_all").setAttribute("height", h + "px");
+            document.getElementById("img_go_mf_all").setAttribute("width", w + "px");
+
+            document.getElementById("img_go_mf_top20_bg").setAttribute("height", h + "px");
+            document.getElementById("img_go_mf_top20_bg").setAttribute("width", w + "px");
+            document.getElementById("img_go_mf_top20").setAttribute("height", h + "px");
+            document.getElementById("img_go_mf_top20").setAttribute("width", w + "px");
+        }
+        FrameWH();
+        $(window).resize(function () {
+            FrameWH();
+        });
+
+        // 获得结果文件并展示
+        function displayRslt(data){
+            if (data["KEGG_ALL"] !== "none"){
+                document.getElementById("div_kegg_all_bg").setAttribute("style", "display:none");
+                document.getElementById("div_kegg_all").setAttribute("style", "");
+                document.getElementById("img_kegg_all").setAttribute("src", "{% url 'backstage:get_file' %}?path=" + data["KEGG_ALL"]);
+            }
+            if (data["KEGG_TOP20"] !== "none"){
+                document.getElementById("div_kegg_top20_bg").setAttribute("style", "display:none");
+                document.getElementById("div_kegg_top20").setAttribute("style", "");
+                document.getElementById("img_kegg_top20").setAttribute("src", "{% url 'backstage:get_file' %}?path="  + data["KEGG_TOP20"]);
+            }
+            if (data["GO_BP_ALL"] !== "none"){
+                document.getElementById("div_go_bp_all_bg").setAttribute("style", "display:none");
+                document.getElementById("div_go_bp_all").setAttribute("style", "");
+                document.getElementById("img_go_bp_all").setAttribute("src", "{% url 'backstage:get_file' %}?path=" + data["GO_BP_ALL"]);
+            }
+            if (data["GO_BP_TOP20"] !== "none"){
+                document.getElementById("div_go_bp_top20_bg").setAttribute("style", "display:none");
+                document.getElementById("div_go_bp_top20").setAttribute("style", "");
+                document.getElementById("img_go_cc_all").setAttribute("src", "{% url 'backstage:get_file' %}?path=" + data["GO_BP_TOP20"]);
+            }
+            if (data["GO_CC_ALL"] !== "none"){
+                document.getElementById("div_go_cc_top20_bg").setAttribute("style", "display:none");
+                document.getElementById("div_go_cc_top20").setAttribute("style", "");
+                document.getElementById("img_go_cc_top20").setAttribute("src", "{% url 'backstage:get_file' %}?path=" + data["GO_CC_ALL"]);
+            }
+            if (data["GO_CC_TOP20"] !== "none"){
+                document.getElementById("div_go_cc_top20_bg").setAttribute("style", "display:none");
+                document.getElementById("div_go_cc_top20").setAttribute("style", "");
+                document.getElementById("img_go_cc_top20").setAttribute("src", "{% url 'backstage:get_file' %}?path=" + data["GO_CC_TOP20"]);
+            }
+            if (data["GO_MF_ALL"] !== "none"){
+                document.getElementById("div_go_mf_all_bg").setAttribute("style", "display:none");
+                document.getElementById("div_go_mf_all").setAttribute("style", "");
+                document.getElementById("img_go_mf_all").setAttribute("src", "{% url 'backstage:get_file' %}?path=" + data["GO_MF_ALL"]);
+            }
+            if (data["GO_MF_TOP20"] !== "none"){
+                document.getElementById("div_go_mf_top20_bg").setAttribute("style", "display:none");
+                document.getElementById("div_go_mf_top20").setAttribute("style", "");
+                document.getElementById("img_go_mf_top20").setAttribute("src", "{% url 'backstage:get_file' %}?path=" + data["GO_MF_TOP20"]);
+            }
+
+            document.getElementById("download").setAttribute("href", "{% url 'backstage:download' %}?file=" + data["f_zip"]);
+        }
+
+        console.log(window.location.href);
+        $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
+        $.ajax({
+                url: "{% url 'backstage:pipeline_kegg_rslt' %}"
+                ,type: "post"
+                ,async: false
+                ,data: {path: getUrlParam("path")}
+                ,success: function (data) {
+                    displayRslt(data)
+                }
+                ,error: function (jqXHR, textStatus, errorThrown) {
+                    layer.msg(errorThrown)
+                }
+            });
+
+
+
+    });
+  </script>
+</body>
+</html>

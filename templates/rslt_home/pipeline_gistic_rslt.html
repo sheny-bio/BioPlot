@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>MUT CNV</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="{% static 'layuiadmin/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'layuiadmin/style/admin.css' %}" media="all">
+</head>
+
+<style>
+    .layui-table-tool {background-color: #FEFFFF;}
+            .layui-table {
+        width:100%;
+        margin:15px 0;
+        border:0;
+    }
+
+    .layui-table th {
+        background-color:#C3E7FA;
+        color:#000000
+    }
+    .layui-table th,.layui-table td {
+        border: 1px solid #dcf1fc;
+        border-width:1px 0 1px 0
+    }
+    .layui-table tr {
+        border: 1px solid #dcf1fc;
+    }
+    .layui-table tr:nth-child(odd){
+        background-color:#ebf7fd;
+    }
+    .layui-table tr:nth-child(even){
+        background-color:#fdfdfd;
+    }
+    .layui-table-view .layui-table[lay-size=sm] .layui-table-cell {
+        height: 26px;
+        line-height: 20px;
+    }
+    .layui-card-header {
+        font-size: 24px;
+        font-weight: bold;
+        color: #009688;
+    }
+</style>
+
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row  layui-col-space10" style="padding-left: 40px; padding-right: 40px">
+
+        <a id="download" href="" class="layui-btn layui-btn-normal" style="margin-bottom: 10px">下载结果</a>
+
+        <div  id="rslt-div" class="layui-card" style="height: 800px">
+            <div class="layui-card-header">AMP_qplot</div>
+            <div class="layui-card-body">
+                <iframe id="img_amp_qplot" src="" frameborder="0"></iframe>
+            </div>
+        </div>
+
+        <div class="layui-card">
+            <div class="layui-card-header">DEL_qplot</div>
+            <div class="layui-card-body" style="width: 600px">
+                <iframe id="img_del_qplot" src="" frameborder="0"></iframe>
+            </div>
+        </div>
+
+        <div class="layui-card">
+            <div class="layui-card-header">freqarms_vs_ngenes</div>
+            <div class="layui-card-body" style="width: 600px">
+                    <iframe id="img_freqarms_vs_ngenes" src="" frameborder="0"></iframe>
+            </div>
+        </div>
+
+        <div class="layui-card">
+            <div class="layui-card-header">copy_number</div>
+            <div class="layui-card-body" style="width: 600px">
+                    <iframe id="img_copy_number" src="" frameborder="0"></iframe>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+    
+<script src="{% static '/js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static '/layuiadmin/layui/layui.js' %}"></script>
+<script src="{% static '/js/bio_plot.js' %}"></script>
+<script>
+
+    layui.config({
+        base: '{% static "layuiadmin/" %}'
+    }).extend({
+        index: 'lib/index',
+    }).use(['index', 'form', 'table'], function(){
+        let $ = layui.$
+            ,layer = layui.layer
+            ,table = layui.table
+            ,form = layui.form;
+
+        // get参数
+        function getUrlParam(name) {
+            let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            let r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return "null";
+        }
+
+        // iframe和图片自适应
+        function FrameWH() {
+            let h = document.getElementById("rslt-div").clientHeight - 70;
+            let w = document.getElementById("rslt-div").clientWidth - 40;
+
+            document.getElementById("img_amp_qplot").setAttribute("height", h + "px");
+            document.getElementById("img_amp_qplot").setAttribute("width", w + "px");
+
+            document.getElementById("img_del_qplot").setAttribute("height", h + "px");
+            document.getElementById("img_del_qplot").setAttribute("width", w + "px");
+
+            document.getElementById("img_freqarms_vs_ngenes").setAttribute("height", h + "px");
+            document.getElementById("img_freqarms_vs_ngenes").setAttribute("width", w + "px");
+
+            document.getElementById("img_copy_number").setAttribute("height", h + "px");
+            document.getElementById("img_copy_number").setAttribute("width", w + "px");
+        }
+        FrameWH();
+        $(window).resize(function () {
+            FrameWH();
+        });
+
+        // 获得结果文件路径
+        let path = getUrlParam("path");
+        document.getElementById("img_amp_qplot").setAttribute("src", "{% url 'backstage:pipeline_gistic_rslt' %}?path=" + path + "&file=AMP_qplot");
+        document.getElementById("img_del_qplot").setAttribute("src", "{% url 'backstage:pipeline_gistic_rslt' %}?path=" + path + "&file=DEL_qplot");
+        document.getElementById("img_freqarms_vs_ngenes").setAttribute("src", "{% url 'backstage:pipeline_gistic_rslt' %}?path=" + path + "&file=freqarms_vs_ngenes");
+        document.getElementById("img_copy_number").setAttribute("src", "{% url 'backstage:pipeline_gistic_rslt' %}?path=" + path + "&file=copy_number");
+        document.getElementById("download").setAttribute("href", "{% url 'backstage:pipeline_gistic_rslt' %}?path=" + path + "&file=copy_number");
+
+
+
+    });
+  </script>
+</body>
+</html>

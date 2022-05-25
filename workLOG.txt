@@ -1,0 +1,528 @@
+Numbers of KEGG enrichment:24
+Numbers of GO_BP enrichment:352
+Numbers of GO_MF enrichment:50
+Numbers of GO_MF enrichment:50
+FB21360520_kegg.no_filter.xlsx filtered by p.ajust have 0
+FB21360520_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FB21360520_go_cc.no_filter.xlsx filtered by p.ajust have 21
+FB21360520_go_mf.no_filter.xlsx filtered by p.ajust have 3
+Numbers of KEGG enrichment:24
+Numbers of GO_BP enrichment:352
+Numbers of GO_MF enrichment:50
+Numbers of GO_MF enrichment:50
+FB21360520_kegg.no_filter.xlsx filtered by p.ajust have 0
+FB21360520_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FB21360520_go_cc.no_filter.xlsx filtered by p.ajust have 21
+FB21360520_go_mf.no_filter.xlsx filtered by p.ajust have 3
+Numbers of KEGG enrichment:24
+Numbers of GO_BP enrichment:352
+Numbers of GO_MF enrichment:50
+Numbers of GO_MF enrichment:50
+FB21360520_kegg.no_filter.xlsx filtered by p.ajust have 0
+FB21360520_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FB21360520_go_cc.no_filter.xlsx filtered by p.ajust have 21
+FB21360520_go_mf.no_filter.xlsx filtered by p.ajust have 3
+Numbers of KEGG enrichment:24
+Numbers of GO_BP enrichment:352
+Numbers of GO_MF enrichment:50
+Numbers of GO_MF enrichment:50
+FB21360520_kegg.no_filter.xlsx filtered by p.ajust have 0
+FB21360520_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FB21360520_go_cc.no_filter.xlsx filtered by p.ajust have 21
+FB21360520_go_mf.no_filter.xlsx filtered by p.ajust have 3
+Numbers of KEGG enrichment:24
+Numbers of GO_BP enrichment:352
+Numbers of GO_MF enrichment:50
+Numbers of GO_MF enrichment:50
+FB21360520_kegg.no_filter.xlsx filtered by p.ajust have 0
+FB21360520_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FB21360520_go_cc.no_filter.xlsx filtered by p.ajust have 21
+FB21360520_go_mf.no_filter.xlsx filtered by p.ajust have 3
+Numbers of KEGG enrichment:24
+Numbers of GO_BP enrichment:352
+Numbers of GO_MF enrichment:50
+Numbers of GO_MF enrichment:50
+FB21360520_kegg.no_filter.xlsx filtered by p.ajust have 0
+FB21360520_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FB21360520_go_cc.no_filter.xlsx filtered by p.ajust have 21
+FB21360520_go_mf.no_filter.xlsx filtered by p.ajust have 3
+Numbers of KEGG enrichment:24
+Numbers of GO_BP enrichment:352
+Numbers of GO_MF enrichment:50
+Numbers of GO_MF enrichment:50
+FB21360520_kegg.no_filter.xlsx filtered by p.ajust have 0
+FB21360520_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FB21360520_go_cc.no_filter.xlsx filtered by p.ajust have 21
+FB21360520_go_mf.no_filter.xlsx filtered by p.ajust have 3
+Numbers of KEGG enrichment:24
+Numbers of GO_BP enrichment:352
+Numbers of GO_MF enrichment:50
+Numbers of GO_MF enrichment:50
+FB21360520_kegg.no_filter.xlsx filtered by p.ajust have 0
+FB21360520_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FB21360520_go_cc.no_filter.xlsx filtered by p.ajust have 21
+FB21360520_go_mf.no_filter.xlsx filtered by p.ajust have 3
+Numbers of KEGG enrichment:24
+Numbers of GO_BP enrichment:352
+Numbers of GO_MF enrichment:50
+Numbers of GO_MF enrichment:50
+FB21360520_kegg.no_filter.xlsx filtered by p.ajust have 0
+FB21360520_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FB21360520_go_cc.no_filter.xlsx filtered by p.ajust have 21
+FB21360520_go_mf.no_filter.xlsx filtered by p.ajust have 3
+Numbers of KEGG enrichment:9
+Numbers of GO_BP enrichment:153
+Numbers of GO_MF enrichment:37
+Numbers of GO_MF enrichment:37
+FC21760256_kegg.no_filter.xlsx filtered by p.ajust have 7
+FC21760256_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_cc.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_mf.no_filter.xlsx filtered by p.ajust have 0
+Numbers of KEGG enrichment:9
+Numbers of GO_BP enrichment:153
+Numbers of GO_MF enrichment:37
+Numbers of GO_MF enrichment:37
+FC21760256_kegg.no_filter.xlsx filtered by p.ajust have 7
+FC21760256_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_cc.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_mf.no_filter.xlsx filtered by p.ajust have 0
+Numbers of KEGG enrichment:9
+Numbers of GO_BP enrichment:138
+Numbers of GO_MF enrichment:25
+Numbers of GO_MF enrichment:25
+FC21760256_kegg.no_filter.xlsx filtered by p.ajust have 7
+FC21760256_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_cc.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_mf.no_filter.xlsx filtered by p.ajust have 0
+Numbers of KEGG enrichment:12
+Numbers of GO_BP enrichment:193
+Numbers of GO_MF enrichment:44
+Numbers of GO_MF enrichment:44
+FC21760256_kegg.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_cc.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_mf.no_filter.xlsx filtered by p.ajust have 0
+Numbers of KEGG enrichment:9
+Numbers of GO_BP enrichment:138
+Numbers of GO_MF enrichment:25
+Numbers of GO_MF enrichment:25
+FC21760256_kegg.no_filter.xlsx filtered by p.ajust have 7
+FC21760256_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_cc.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_mf.no_filter.xlsx filtered by p.ajust have 0
+Numbers of KEGG enrichment:9
+Numbers of GO_BP enrichment:138
+Numbers of GO_MF enrichment:25
+Numbers of GO_MF enrichment:25
+FC21760256_kegg.no_filter.xlsx filtered by p.ajust have 7
+FC21760256_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_cc.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_mf.no_filter.xlsx filtered by p.ajust have 0
+Numbers of KEGG enrichment:9
+Numbers of GO_BP enrichment:138
+Numbers of GO_MF enrichment:25
+Numbers of GO_MF enrichment:25
+FC21760256_kegg.no_filter.xlsx filtered by p.ajust have 7
+FC21760256_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_cc.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_mf.no_filter.xlsx filtered by p.ajust have 0
+Numbers of KEGG enrichment:12
+Numbers of GO_BP enrichment:193
+Numbers of GO_MF enrichment:44
+Numbers of GO_MF enrichment:44
+FC21760256_kegg.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_cc.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_mf.no_filter.xlsx filtered by p.ajust have 0
+Numbers of KEGG enrichment:13
+Numbers of GO_BP enrichment:193
+Numbers of GO_MF enrichment:44
+Numbers of GO_MF enrichment:44
+FC21760256_kegg.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_cc.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_mf.no_filter.xlsx filtered by p.ajust have 0
+Numbers of KEGG enrichment:13
+Numbers of GO_BP enrichment:193
+Numbers of GO_MF enrichment:44
+Numbers of GO_MF enrichment:44
+FC21760256_kegg.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_cc.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_mf.no_filter.xlsx filtered by p.ajust have 0
+Numbers of KEGG enrichment:13
+Numbers of GO_BP enrichment:193
+Numbers of GO_MF enrichment:44
+Numbers of GO_MF enrichment:44
+FC21760256_kegg.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_cc.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_mf.no_filter.xlsx filtered by p.ajust have 0
+Numbers of KEGG enrichment:108
+Numbers of GO_BP enrichment:551
+Numbers of GO_MF enrichment:65
+Numbers of GO_MF enrichment:65
+TB21BM0285_kegg.no_filter.xlsx filtered by pvalue have 29
+TB21BM0285_go_bp.no_filter.xlsx filtered by pvalue have 194
+TB21BM0285_go_cc.no_filter.xlsx filtered by pvalue have 29
+TB21BM0285_go_mf.no_filter.xlsx filtered by pvalue have 27
+Numbers of KEGG enrichment:157
+Numbers of GO_BP enrichment:1562
+Numbers of GO_MF enrichment:181
+Numbers of GO_MF enrichment:181
+FB21BW0200_kegg.no_filter.xlsx filtered by pvalue have 53
+FB21BW0200_go_bp.no_filter.xlsx filtered by pvalue have 292
+FB21BW0200_go_cc.no_filter.xlsx filtered by pvalue have 37
+FB21BW0200_go_mf.no_filter.xlsx filtered by pvalue have 50
+Numbers of KEGG enrichment:157
+Numbers of GO_BP enrichment:1562
+Numbers of GO_MF enrichment:181
+Numbers of GO_MF enrichment:181
+FB21BW0200_kegg.no_filter.xlsx filtered by pvalue have 53
+FB21BW0200_go_bp.no_filter.xlsx filtered by pvalue have 292
+FB21BW0200_go_cc.no_filter.xlsx filtered by pvalue have 37
+FB21BW0200_go_mf.no_filter.xlsx filtered by pvalue have 50
+Numbers of KEGG enrichment:13
+Numbers of GO_BP enrichment:193
+Numbers of GO_MF enrichment:44
+Numbers of GO_MF enrichment:44
+FC21760256_kegg.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_cc.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_mf.no_filter.xlsx filtered by p.ajust have 0
+Numbers of KEGG enrichment:13
+Numbers of GO_BP enrichment:193
+Numbers of GO_MF enrichment:44
+Numbers of GO_MF enrichment:44
+FC21760256_kegg.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_cc.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_mf.no_filter.xlsx filtered by p.ajust have 0
+Numbers of KEGG enrichment:13
+Numbers of GO_BP enrichment:193
+Numbers of GO_MF enrichment:44
+Numbers of GO_MF enrichment:44
+FC21760256_kegg.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_cc.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_mf.no_filter.xlsx filtered by p.ajust have 0
+Numbers of KEGG enrichment:13
+Numbers of GO_BP enrichment:193
+Numbers of GO_MF enrichment:44
+Numbers of GO_MF enrichment:44
+FC21760256_kegg.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_cc.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_mf.no_filter.xlsx filtered by p.ajust have 0
+Numbers of KEGG enrichment:13
+Numbers of GO_BP enrichment:193
+Numbers of GO_MF enrichment:44
+Numbers of GO_MF enrichment:44
+FC21760256_kegg.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_cc.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_mf.no_filter.xlsx filtered by p.ajust have 0
+Numbers of KEGG enrichment:13
+Numbers of GO_BP enrichment:193
+Numbers of GO_MF enrichment:44
+Numbers of GO_MF enrichment:44
+FC21760256_kegg.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_cc.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_mf.no_filter.xlsx filtered by p.ajust have 0
+Numbers of KEGG enrichment:13
+Numbers of GO_BP enrichment:193
+Numbers of GO_MF enrichment:44
+Numbers of GO_MF enrichment:44
+FC21760256_kegg.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_cc.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_mf.no_filter.xlsx filtered by p.ajust have 0
+Numbers of KEGG enrichment:13
+Numbers of GO_BP enrichment:193
+Numbers of GO_MF enrichment:44
+Numbers of GO_MF enrichment:44
+FC21760256_kegg.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_bp.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_cc.no_filter.xlsx filtered by p.ajust have 0
+FC21760256_go_mf.no_filter.xlsx filtered by p.ajust have 0
+Numbers of KEGG enrichment:84
+Numbers of GO_BP enrichment:1134
+Numbers of GO_MF enrichment:168
+Numbers of GO_MF enrichment:168
+TB21BP0276_kegg.no_filter.xlsx filtered by pvalue have 7
+TB21BP0276_go_bp.no_filter.xlsx filtered by pvalue have 171
+TB21BP0276_go_cc.no_filter.xlsx filtered by pvalue have 24
+TB21BP0276_go_mf.no_filter.xlsx filtered by pvalue have 26
+Numbers of KEGG enrichment:148
+Numbers of GO_BP enrichment:1329
+Numbers of GO_MF enrichment:185
+Numbers of GO_MF enrichment:185
+FA21BW0267_kegg.no_filter.xlsx filtered by pvalue have 57
+FA21BW0267_go_bp.no_filter.xlsx filtered by pvalue have 455
+FA21BW0267_go_cc.no_filter.xlsx filtered by pvalue have 16
+FA21BW0267_go_mf.no_filter.xlsx filtered by pvalue have 50
+Numbers of KEGG enrichment:148
+Numbers of GO_BP enrichment:1329
+Numbers of GO_MF enrichment:185
+Numbers of GO_MF enrichment:185
+FA21BW0267_kegg.no_filter.xlsx filtered by pvalue have 57
+FA21BW0267_go_bp.no_filter.xlsx filtered by pvalue have 455
+FA21BW0267_go_cc.no_filter.xlsx filtered by pvalue have 16
+FA21BW0267_go_mf.no_filter.xlsx filtered by pvalue have 50
+Numbers of KEGG enrichment:1
+Numbers of GO_BP enrichment:135
+Numbers of GO_MF enrichment:7
+Numbers of GO_MF enrichment:7
+TC221B0179_kegg.no_filter.xlsx filtered by pvalue have 0
+TC221B0179_go_bp.no_filter.xlsx filtered by pvalue have 91
+TC221B0179_go_cc.no_filter.xlsx filtered by pvalue have 6
+TC221B0179_go_mf.no_filter.xlsx filtered by pvalue have 4
+Numbers of KEGG enrichment:129
+Numbers of GO_BP enrichment:1324
+Numbers of GO_MF enrichment:187
+Numbers of GO_MF enrichment:187
+FB221A0323_kegg.no_filter.xlsx filtered by pvalue have 13
+FB221A0323_go_bp.no_filter.xlsx filtered by pvalue have 245
+FB221A0323_go_cc.no_filter.xlsx filtered by pvalue have 41
+FB221A0323_go_mf.no_filter.xlsx filtered by pvalue have 39
+Numbers of KEGG enrichment:129
+Numbers of GO_BP enrichment:1324
+Numbers of GO_MF enrichment:187
+Numbers of GO_MF enrichment:187
+FB221A0323_kegg.no_filter.xlsx filtered by pvalue have 13
+FB221A0323_go_bp.no_filter.xlsx filtered by pvalue have 245
+FB221A0323_go_cc.no_filter.xlsx filtered by pvalue have 41
+FB221A0323_go_mf.no_filter.xlsx filtered by pvalue have 39
+Numbers of KEGG enrichment:54
+Numbers of GO_BP enrichment:687
+Numbers of GO_MF enrichment:57
+Numbers of GO_MF enrichment:57
+FD21BQ0345_kegg.no_filter.xlsx filtered by pvalue have 22
+FD21BQ0345_go_bp.no_filter.xlsx filtered by pvalue have 289
+FD21BQ0345_go_cc.no_filter.xlsx filtered by pvalue have 17
+FD21BQ0345_go_mf.no_filter.xlsx filtered by pvalue have 28
+Numbers of KEGG enrichment:84
+Numbers of GO_BP enrichment:1592
+Numbers of GO_MF enrichment:75
+Numbers of GO_MF enrichment:75
+FB221M0305_kegg.no_filter.xlsx filtered by pvalue have 35
+FB221M0305_go_bp.no_filter.xlsx filtered by pvalue have 1109
+FB221M0305_go_cc.no_filter.xlsx filtered by pvalue have 26
+FB221M0305_go_mf.no_filter.xlsx filtered by pvalue have 37
+Numbers of KEGG enrichment:84
+Numbers of GO_BP enrichment:1592
+Numbers of GO_MF enrichment:75
+Numbers of GO_MF enrichment:75
+FB221M0305_kegg.no_filter.xlsx filtered by pvalue have 35
+FB221M0305_go_bp.no_filter.xlsx filtered by pvalue have 1109
+FB221M0305_go_cc.no_filter.xlsx filtered by pvalue have 26
+FB221M0305_go_mf.no_filter.xlsx filtered by pvalue have 37
+Numbers of KEGG enrichment:84
+Numbers of GO_BP enrichment:1592
+Numbers of GO_MF enrichment:75
+Numbers of GO_MF enrichment:75
+FB221M0305_kegg.no_filter.xlsx filtered by pvalue have 35
+FB221M0305_go_bp.no_filter.xlsx filtered by pvalue have 1109
+FB221M0305_go_cc.no_filter.xlsx filtered by pvalue have 26
+FB221M0305_go_mf.no_filter.xlsx filtered by pvalue have 37
+Numbers of KEGG enrichment:103
+Numbers of GO_BP enrichment:1691
+Numbers of GO_MF enrichment:235
+Numbers of GO_MF enrichment:235
+FB22290116_kegg.no_filter.xlsx filtered by pvalue have 3
+FB22290116_go_bp.no_filter.xlsx filtered by pvalue have 216
+FB22290116_go_cc.no_filter.xlsx filtered by pvalue have 42
+FB22290116_go_mf.no_filter.xlsx filtered by pvalue have 34
+Numbers of KEGG enrichment:103
+Numbers of GO_BP enrichment:1691
+Numbers of GO_MF enrichment:235
+Numbers of GO_MF enrichment:235
+FB22290116_kegg.no_filter.xlsx filtered by pvalue have 3
+FB22290116_go_bp.no_filter.xlsx filtered by pvalue have 216
+FB22290116_go_cc.no_filter.xlsx filtered by pvalue have 42
+FB22290116_go_mf.no_filter.xlsx filtered by pvalue have 34
+Numbers of KEGG enrichment:103
+Numbers of GO_BP enrichment:1691
+Numbers of GO_MF enrichment:235
+Numbers of GO_MF enrichment:235
+FB22290116_kegg.no_filter.xlsx filtered by pvalue have 3
+FB22290116_go_bp.no_filter.xlsx filtered by pvalue have 216
+FB22290116_go_cc.no_filter.xlsx filtered by pvalue have 42
+FB22290116_go_mf.no_filter.xlsx filtered by pvalue have 34
+Numbers of KEGG enrichment:103
+Numbers of GO_BP enrichment:1691
+Numbers of GO_MF enrichment:235
+Numbers of GO_MF enrichment:235
+FB22290116_kegg.no_filter.xlsx filtered by pvalue have 3
+FB22290116_go_bp.no_filter.xlsx filtered by pvalue have 216
+FB22290116_go_cc.no_filter.xlsx filtered by pvalue have 42
+FB22290116_go_mf.no_filter.xlsx filtered by pvalue have 34
+Numbers of KEGG enrichment:103
+Numbers of GO_BP enrichment:1691
+Numbers of GO_MF enrichment:235
+Numbers of GO_MF enrichment:235
+FB22290116_kegg.no_filter.xlsx filtered by pvalue have 3
+FB22290116_go_bp.no_filter.xlsx filtered by pvalue have 216
+FB22290116_go_cc.no_filter.xlsx filtered by pvalue have 42
+FB22290116_go_mf.no_filter.xlsx filtered by pvalue have 34
+Numbers of KEGG enrichment:93
+Numbers of GO_BP enrichment:1018
+Numbers of GO_MF enrichment:97
+Numbers of GO_MF enrichment:97
+FB221U0161_kegg.no_filter.xlsx filtered by pvalue have 26
+FB221U0161_go_bp.no_filter.xlsx filtered by pvalue have 475
+FB221U0161_go_cc.no_filter.xlsx filtered by pvalue have 18
+FB221U0161_go_mf.no_filter.xlsx filtered by pvalue have 43
+Numbers of KEGG enrichment:103
+Numbers of GO_BP enrichment:1691
+Numbers of GO_MF enrichment:235
+Numbers of GO_MF enrichment:235
+FB22290116_kegg.no_filter.xlsx filtered by pvalue have 3
+FB22290116_go_bp.no_filter.xlsx filtered by pvalue have 216
+FB22290116_go_cc.no_filter.xlsx filtered by pvalue have 42
+FB22290116_go_mf.no_filter.xlsx filtered by pvalue have 34
+Numbers of KEGG enrichment:82
+Numbers of GO_BP enrichment:87
+Numbers of GO_MF enrichment:10
+Numbers of GO_MF enrichment:10
+TC222B0252_kegg.no_filter.xlsx filtered by pvalue have 81
+TC222B0252_go_bp.no_filter.xlsx filtered by pvalue have 87
+TC222B0252_go_cc.no_filter.xlsx filtered by pvalue have 11
+TC222B0252_go_mf.no_filter.xlsx filtered by pvalue have 10
+Numbers of KEGG enrichment:105
+Numbers of GO_BP enrichment:1303
+Numbers of GO_MF enrichment:232
+Numbers of GO_MF enrichment:232
+FB222A0308_kegg.no_filter.xlsx filtered by pvalue have 18
+FB222A0308_go_bp.no_filter.xlsx filtered by pvalue have 205
+FB222A0308_go_cc.no_filter.xlsx filtered by pvalue have 41
+FB222A0308_go_mf.no_filter.xlsx filtered by pvalue have 50
+Numbers of KEGG enrichment:83
+Numbers of GO_BP enrichment:1122
+Numbers of GO_MF enrichment:96
+Numbers of GO_MF enrichment:96
+UP_kegg.no_filter.xlsx filtered by p.ajust have 31
+UP_go_bp.no_filter.xlsx filtered by p.ajust have 83
+UP_go_cc.no_filter.xlsx filtered by p.ajust have 0
+UP_go_mf.no_filter.xlsx filtered by p.ajust have 15
+Numbers of KEGG enrichment:55
+Numbers of GO_BP enrichment:274
+Numbers of GO_MF enrichment:49
+Numbers of GO_MF enrichment:49
+FC221C0211_kegg.no_filter.xlsx filtered by pvalue have 6
+FC221C0211_go_bp.no_filter.xlsx filtered by pvalue have 76
+FC221C0211_go_cc.no_filter.xlsx filtered by pvalue have 8
+FC221C0211_go_mf.no_filter.xlsx filtered by pvalue have 20
+Numbers of KEGG enrichment:101
+Numbers of GO_BP enrichment:1306
+Numbers of GO_MF enrichment:177
+Numbers of GO_MF enrichment:177
+TE222J0346_kegg.no_filter.xlsx filtered by p.ajust have 6
+TE222J0346_go_bp.no_filter.xlsx filtered by p.ajust have 18
+TE222J0346_go_cc.no_filter.xlsx filtered by p.ajust have 4
+TE222J0346_go_mf.no_filter.xlsx filtered by p.ajust have 2
+Numbers of KEGG enrichment:136
+Numbers of GO_BP enrichment:1375
+Numbers of GO_MF enrichment:148
+Numbers of GO_MF enrichment:148
+FB222M0233_kegg.no_filter.xlsx filtered by pvalue have 33
+FB222M0233_go_bp.no_filter.xlsx filtered by pvalue have 404
+FB222M0233_go_cc.no_filter.xlsx filtered by pvalue have 39
+FB222M0233_go_mf.no_filter.xlsx filtered by pvalue have 54
+Numbers of KEGG enrichment:136
+Numbers of GO_BP enrichment:1375
+Numbers of GO_MF enrichment:148
+Numbers of GO_MF enrichment:148
+FB222M0233_kegg.no_filter.xlsx filtered by pvalue have 33
+FB222M0233_go_bp.no_filter.xlsx filtered by pvalue have 404
+FB222M0233_go_cc.no_filter.xlsx filtered by pvalue have 39
+FB222M0233_go_mf.no_filter.xlsx filtered by pvalue have 54
+Numbers of KEGG enrichment:116
+Numbers of GO_BP enrichment:1307
+Numbers of GO_MF enrichment:202
+Numbers of GO_MF enrichment:202
+FC222H0285_kegg.no_filter.xlsx filtered by pvalue have 15
+FC222H0285_go_bp.no_filter.xlsx filtered by pvalue have 180
+FC222H0285_go_cc.no_filter.xlsx filtered by pvalue have 19
+FC222H0285_go_mf.no_filter.xlsx filtered by pvalue have 21
+Numbers of KEGG enrichment:116
+Numbers of GO_BP enrichment:1307
+Numbers of GO_MF enrichment:202
+Numbers of GO_MF enrichment:202
+FC222H0285_kegg.no_filter.xlsx filtered by pvalue have 15
+FC222H0285_go_bp.no_filter.xlsx filtered by pvalue have 180
+FC222H0285_go_cc.no_filter.xlsx filtered by pvalue have 19
+FC222H0285_go_mf.no_filter.xlsx filtered by pvalue have 21
+Numbers of KEGG enrichment:228
+Numbers of GO_BP enrichment:2977
+Numbers of GO_MF enrichment:470
+Numbers of GO_MF enrichment:470
+TB222J0764_kegg.no_filter.xlsx filtered by pvalue have 11
+TB222J0764_go_bp.no_filter.xlsx filtered by pvalue have 249
+TB222J0764_go_cc.no_filter.xlsx filtered by pvalue have 63
+TB222J0764_go_mf.no_filter.xlsx filtered by pvalue have 44
+Numbers of KEGG enrichment:228
+Numbers of GO_BP enrichment:2977
+Numbers of GO_MF enrichment:470
+Numbers of GO_MF enrichment:470
+TB222J0764_kegg.no_filter.xlsx filtered by pvalue have 11
+TB222J0764_go_bp.no_filter.xlsx filtered by pvalue have 249
+TB222J0764_go_cc.no_filter.xlsx filtered by pvalue have 63
+TB222J0764_go_mf.no_filter.xlsx filtered by pvalue have 44
+Numbers of KEGG enrichment:232
+Numbers of GO_BP enrichment:3050
+Numbers of GO_MF enrichment:476
+Numbers of GO_MF enrichment:476
+TB222J0764_kegg.no_filter.xlsx filtered by pvalue have 17
+TB222J0764_go_bp.no_filter.xlsx filtered by pvalue have 265
+TB222J0764_go_cc.no_filter.xlsx filtered by pvalue have 65
+TB222J0764_go_mf.no_filter.xlsx filtered by pvalue have 45
+Numbers of KEGG enrichment:13
+Numbers of GO_BP enrichment:291
+Numbers of GO_MF enrichment:23
+Numbers of GO_MF enrichment:23
+TC22320269_kegg.no_filter.xlsx filtered by pvalue have 6
+TC22320269_go_bp.no_filter.xlsx filtered by pvalue have 234
+TC22320269_go_cc.no_filter.xlsx filtered by pvalue have 16
+TC22320269_go_mf.no_filter.xlsx filtered by pvalue have 22
+Numbers of KEGG enrichment:1
+Numbers of GO_BP enrichment:48
+Numbers of GO_MF enrichment:10
+Numbers of GO_MF enrichment:10
+FB22270237_kegg.no_filter.xlsx filtered by pvalue have 1
+FB22270237_go_bp.no_filter.xlsx filtered by pvalue have 48
+FB22270237_go_cc.no_filter.xlsx filtered by pvalue have 13
+FB22270237_go_mf.no_filter.xlsx filtered by pvalue have 9
+Numbers of KEGG enrichment:4
+Numbers of GO_BP enrichment:86
+Numbers of GO_MF enrichment:16
+Numbers of GO_MF enrichment:16
+TC223R0421-D2BCF90XNF1-L000KAU7_kegg.no_filter.xlsx filtered by pvalue have 3
+TC223R0421-D2BCF90XNF1-L000KAU7_go_bp.no_filter.xlsx filtered by pvalue have 62
+TC223R0421-D2BCF90XNF1-L000KAU7_go_cc.no_filter.xlsx filtered by pvalue have 17
+TC223R0421-D2BCF90XNF1-L000KAU7_go_mf.no_filter.xlsx filtered by pvalue have 13
+Numbers of KEGG enrichment:4
+Numbers of GO_BP enrichment:86
+Numbers of GO_MF enrichment:16
+Numbers of GO_MF enrichment:16
+TC223R0421-D2BCF90XNF1-L000KAU7_kegg.no_filter.xlsx filtered by pvalue have 3
+TC223R0421-D2BCF90XNF1-L000KAU7_go_bp.no_filter.xlsx filtered by pvalue have 62
+TC223R0421-D2BCF90XNF1-L000KAU7_go_cc.no_filter.xlsx filtered by pvalue have 17
+TC223R0421-D2BCF90XNF1-L000KAU7_go_mf.no_filter.xlsx filtered by pvalue have 13
+Numbers of KEGG enrichment:33
+Numbers of GO_BP enrichment:750
+Numbers of GO_MF enrichment:13
+Numbers of GO_MF enrichment:13
+TC221L0354_kegg.no_filter.xlsx filtered by pvalue have 33
+TC221L0354_go_bp.no_filter.xlsx filtered by pvalue have 750
+TC221L0354_go_cc.no_filter.xlsx filtered by pvalue have 11
+TC221L0354_go_mf.no_filter.xlsx filtered by pvalue have 13
+Numbers of KEGG enrichment:33
+Numbers of GO_BP enrichment:750
+Numbers of GO_MF enrichment:13
+Numbers of GO_MF enrichment:13
+TC221L0354_kegg.no_filter.xlsx filtered by pvalue have 33
+TC221L0354_go_bp.no_filter.xlsx filtered by pvalue have 750
+TC221L0354_go_cc.no_filter.xlsx filtered by pvalue have 11
+TC221L0354_go_mf.no_filter.xlsx filtered by pvalue have 13

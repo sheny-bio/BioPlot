@@ -1,0 +1,474 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>swimmer图</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="{% static 'layuiadmin/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'layuiadmin/style/admin.css' %}" media="all">
+</head>
+
+<style>
+    .layui-table-tool {background-color: #FEFFFF;}
+            .layui-table {
+        width:100%;
+        margin:15px 0;
+        border:0;
+    }
+
+    .layui-table th {
+        background-color:#C3E7FA;
+        color:#000000
+    }
+    .layui-table th,.layui-table td {
+        border: 1px solid #dcf1fc;
+        border-width:1px 0 1px 0
+    }
+    .layui-table tr {
+        border: 1px solid #dcf1fc;
+    }
+    .layui-table tr:nth-child(odd){
+        background-color:#ebf7fd;
+    }
+    .layui-table tr:nth-child(even){
+        background-color:#fdfdfd;
+    }
+    .layui-table-view .layui-table[lay-size=sm] .layui-table-cell {
+        height: 26px;
+        line-height: 20px;
+    }
+</style>
+
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row  layui-col-space10">
+
+        <div class="layui-col-md5">
+            <div class="layui-row">
+
+                <div class="layui-col-md12">
+                    <div class="layui-tab layui-tab-brief layui-bg-white" style="height: 660px;">
+                        <ul class="layui-tab-title">
+                            <li class="layui-this">参数设置</li>
+                        </ul>
+
+                        <div class="layui-tab-content">
+                            <div class="layui-tab-item layui-show">
+                                <form class="layui-form" action="">
+                                    <div style="overflow-y: auto; height: 500px; padding: 10px; margin-bottom: 20px">
+
+
+                                        <div class="layui-inline">
+                                            <a href="{% static 'demo/swimmer_demo.zip' %}" class="layui-btn layui-btn-sm layui-btn-warm">下载demo</a>
+                                            <a id="rslt_pdf" href="" class="layui-btn layui-btn-sm">下载pdf</a>
+                                        </div>
+
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 14px;color: #007DDB;font-weight: bold">输入文件</legend>
+                                        </fieldset>
+
+                                        <div class="layui-form-item layui-form-pane">
+                                            <label class="layui-form-label">bar file</label>
+                                            <div class="layui-input-block">
+                                                <input type="button" id="input_for_plotting_bars" name="input_for_plotting_bars" class="layui-input" readonly lay-verify="required">
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item layui-form-pane">
+                                            <label class="layui-form-label">dot file</label>
+                                            <div class="layui-input-block">
+                                                <input type="button" id="input_for_plotting_dots" name="input_for_plotting_dots" class="layui-input" readonly lay-verify="required">
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item layui-form-pane">
+                                            <label class="layui-form-label">line file</label>
+                                            <div class="layui-input-block">
+                                                <input type="button" id="input_for_adding_lines" name="input_for_adding_lines" class="layui-input">
+                                            </div>
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 14px;color: #007DDB;font-weight: bold">输出文件</legend>
+                                        </fieldset>
+
+                                        <div class="layui-form-item layui-form-pane">
+                                            <label class="layui-form-label">文件名</label>
+                                            <div class="layui-input-block">
+                                                <input id="out_fig_name" name="out_fig_name" class="layui-input" value="swimmer_plot">
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">宽度</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="set_fig_width" class="layui-input" value=15 lay-verify="required">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">高度</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="set_fig_height" class="layui-input" value=10 lay-verify="required">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 14px;color: #007DDB;font-weight: bold">柱形图设置</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">柱宽</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="set_bar_width" class="layui-input">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">透明度</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="set_bar_transparency" class="layui-input" value=0.75>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">边框颜色</label>
+                                                <div class="layui-input-inline" style="width: 110px;">
+                                                    <input type="text" class="layui-input" name="set_bar_stroke_color" value="black" id="set_bar_stroke_color">
+                                                </div>
+                                                <div class="layui-inline" style="left: -10px;">
+                                                    <div id="colorpicker-set_bar_stroke_color"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">排序</label>
+                                                <div class="layui-input-block">
+                                                    <select name="set_bar_order">
+                                                        <option value="" selected>按随访时间</option>
+                                                        <option value="excel">按excel中的顺序</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 14px;color: #007DDB;font-weight: bold">散点与线段</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">散点大小</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="set_dot_size" class="layui-input">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">线段粗细</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="set_line_size" class="layui-input">
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 14px;color: #007DDB;font-weight: bold">箭头设置</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">箭头信息列</label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="add_arrows" class="layui-input">
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">箭头长度</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="set_arrows_length" class="layui-input" value=0.1>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">箭头样式</label>
+                                                <div class="layui-input-block">
+                                                    <select name="set_arrows_style" lay-verify="required">
+                                                        <option value="closed" selected>closed</option>
+                                                        <option value="open">open</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">箭头大小</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="set_arrows_size" class="layui-input">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+                                            <div class="layui-col-lg6">
+                                                <label class="layui-form-label">箭头角度</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" name="set_arrows_angle" class="layui-input">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <fieldset class="layui-elem-field layui-field-title">
+                                            <legend style="font-size: 14px;color: #007DDB;font-weight: bold">颜色设置</legend>
+                                        </fieldset>
+
+                                        <div class="layui-row layui-col-space10 layui-form-item layui-form-pane">
+                                            <table id="table_color"></table>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="layui-form-item layui-layout-admin" style="padding-bottom: 10px">
+                                        <div class="layui-input-block">
+                                            <button id="button-form" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="button-form">分析</button>
+                                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-md7">
+            <div class="layui-tab layui-tab-brief layui-bg-white">
+                <ul class="layui-tab-title">
+                    <li id="tab-title-rslt">分析结果</li>
+                    <li id="tab-title-help" class="layui-this">说明文档</li>
+                </ul>
+
+                <div id="rslt-div" class="layui-tab-content" style="height: 600px">
+                    <div id="tab-item-rslt" class="layui-tab-item">
+                        <img id="img-rslt" src="{% static 'img/no_images.png' %}" style="margin: 0 auto;">
+                    </div>
+
+                    <div id="tab-item-help" class="layui-tab-item  layui-show">
+                        <iframe id="iframe-body" src="{% url 'plot_swimmer_doc' %}" style="height: 600px; width: 100%" frameborder="0"></iframe>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        {% verbatim %}
+        <script type="text/html" id="toolbar-tools">
+            <div class="layui-btn-container">
+                {{#  if(d.code == "run"){ }}
+                    <button class="layui-btn layui-btn-xs layui-btn-warm" lay-event="rm_analyze">运行中</button>
+                {{#  } else if(d.code == "done") { }}
+                    <button class="layui-btn layui-btn-xs layui-btn-normal" lay-event="rm_analyze">完成</button>
+                {{#  } else if(d.code == "error") { }}
+                    <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="in_analyze">失败</button>
+                {{#  } else { }}
+                     <button class="layui-btn layui-btn-xs layui-btn-disabled" lay-event="in_analyze">无任务</button>
+                {{#  } }}
+          </div>
+        </script>
+        {% endverbatim %}
+
+    </div>
+</div>
+
+
+<script src="{% static '/js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static '/layuiadmin/layui/layui.js' %}"></script>
+<script src="{% static '/js/bio_plot.js' %}"></script>
+<script>
+
+    layui.config({
+        base: '{% static "layuiadmin/" %}'
+    }).extend({
+        index: 'lib/index',
+    }).use(['index', 'form', 'table', 'upload', 'colorpicker'], function(){
+        let $ = layui.$
+            ,layer = layui.layer
+            ,table = layui.table
+            ,upload = layui.upload
+            ,colorpicker = layui.colorpicker
+            ,form = layui.form;
+
+        // iframe和图片自适应
+       function FrameWH() {
+           let h = document.getElementById("rslt-div").clientHeight - 20;
+           let w = document.getElementById("rslt-div").clientWidth - 20;
+           document.getElementById("img-rslt").setAttribute("height", h + "px");
+           document.getElementById("img-rslt").setAttribute("width", w + "px");
+           document.getElementById("iframe-body").setAttribute("height", h + "px");
+           document.getElementById("iframe-body").setAttribute("width", w + "px");
+       }
+       FrameWH();
+       $(window).resize(function () {
+           FrameWH();
+       });
+
+       // 获得分组信息，用于指定颜色
+        $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
+        let getGroup = function(file, col_index, file_name){
+            $.ajax({
+                url: "{% url 'backstage:group_by_file' %}"
+                ,type: "post"
+                ,data: {file: file, col_index: col_index}
+                ,success: function (data) {
+                    let t_data = layui.table.cache['table_color'];
+                    for (let i = 0; i < data["data"].length; ++i) {
+                        t_data.push({col_name: data["data"][i], color: "", file_name: file_name})
+                    }
+                    table.reload('table_color', {data: t_data});
+
+                }
+                ,error: function (jqXHR, textStatus, errorThrown) {
+                    layer.msg(errorThrown)
+                }
+            });
+        };
+
+       // 上传bar file
+        upload.render({
+            elem: '#input_for_plotting_bars'
+            ,accept: "file"
+            ,exts: "xls|xlsx"
+            ,url: '{% url "backstage:upload_file" %}'
+            ,done: function(res){
+                document.getElementById("input_for_plotting_bars").setAttribute("value", res["file"]);
+                getGroup(res['file'], 1, "bar")
+            }
+            ,error: function(){
+                layer.msg("上传失败")
+            }
+        });
+
+        // 上传dot file
+        upload.render({
+            elem: '#input_for_plotting_dots'
+            ,accept: "file"
+            ,exts: "xls|xlsx"
+            ,url: '{% url "backstage:upload_file" %}'
+            ,done: function(res){
+                document.getElementById("input_for_plotting_dots").setAttribute("value", res["file"]);
+                getGroup(res['file'], 1, "dot")
+            }
+            ,error: function(){
+                layer.msg("上传失败")
+            }
+        });
+
+        // 上传line file
+        upload.render({
+            elem: '#input_for_adding_lines'
+            ,accept: "file"
+            ,exts: "xls|xlsx"
+            ,url: '{% url "backstage:upload_file" %}'
+            ,done: function(res){
+                document.getElementById("input_for_adding_lines").setAttribute("value", res["file"]);
+            }
+            ,error: function(){
+                layer.msg("上传失败")
+            }
+        });
+
+        // 颜色表格
+        table.render({
+            elem: '#table_color'
+            ,cols: [[
+                {field: 'file_name', title: '文件'}
+                ,{field: 'col_name', title: '列名'}
+                ,{field: 'color', title: '颜色', edit: "text"}
+                ]]
+            ,data: []
+        });
+
+        // 画图
+        $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
+        form.on('submit(button-form)', function(data){
+            let t_data = layui.table.cache['table_color'];
+            for (let i = 0; i < t_data.length; ++i) {
+                data.field[t_data[i]["file_name"] + "-fn-" + t_data[i]["col_name"]] = t_data[i]["color"]
+            }
+
+
+            $.ajax({
+                url: "{% url 'backstage:plot_swimmer' %}"
+                ,type: "post"
+                ,data: data.field
+                ,beforeSend: function () {
+                    layer.load(1);
+                    $("#button-form").addClass(" layui-btn-disabled");
+                    $("#tab-item-help").removeClass("layui-show");
+                    $("#tab-title-help").removeClass("layui-this");
+                    $("#tab-title-rslt").addClass("layui-this");
+                    $("#tab-item-rslt").addClass("layui-show");
+                    document.getElementById("img-rslt").setAttribute("src", "{% static 'img/no_images.png' %}");
+                }
+                ,success: function (data) {
+                    console.log(data);
+                    if (data['code'] === 0){
+                        document.getElementById("img-rslt").setAttribute("src", "{% url 'backstage:get_file' %}?path=" + data["f_jpg"]);
+                        document.getElementById("rslt_pdf").setAttribute("href", "{% url 'backstage:get_file' %}?path=" + data["f_pdf"]);
+                        layer.closeAll();
+                    $("#button-form").removeClass("layui-btn-disabled");
+                    }else {
+                        layer.msg(data['msg'], {time: 5000});
+                        setTimeout(function () {
+                            layer.closeAll();
+                    $("#button-form").removeClass("layui-btn-disabled");
+                        }, 5000);
+                    }
+                }
+                ,error: function (jqXHR, textStatus, errorThrown) {
+                    layer.msg(errorThrown)
+                }
+            });
+
+            return false;
+        });
+
+        // 点击显示原图
+        $("#img-rslt").click(function () {
+            layer.photos({
+                photos: '#tab-item-rslt'
+                ,anim: 5
+                ,shade: [0.2, '#393D49']
+              });
+        });
+
+
+        // 边框颜色
+        colorpicker.render({
+            elem: '#colorpicker-set_bar_stroke_color'
+            ,color: '#1c97f5'
+            ,done: function(color){
+                $('#set_bar_stroke_color').val(color);
+            }
+        });
+
+
+    });
+  </script>
+</body>
+</html>

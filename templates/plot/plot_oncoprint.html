@@ -1,0 +1,284 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>oncoprint图</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="{% static 'layuiadmin/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'layuiadmin/style/admin.css' %}" media="all">
+</head>
+
+<style>
+    .layui-table-tool {background-color: #FEFFFF;}
+            .layui-table {
+        width:100%;
+        margin:15px 0;
+        border:0;
+    }
+
+    .layui-table th {
+        background-color:#C3E7FA;
+        color:#000000
+    }
+    .layui-table th,.layui-table td {
+        border: 1px solid #dcf1fc;
+        border-width:1px 0 1px 0
+    }
+    .layui-table tr {
+        border: 1px solid #dcf1fc;
+    }
+    .layui-table tr:nth-child(odd){
+        background-color:#ebf7fd;
+    }
+    .layui-table tr:nth-child(even){
+        background-color:#fdfdfd;
+    }
+    .layui-table-view .layui-table[lay-size=sm] .layui-table-cell {
+        height: 26px;
+        line-height: 20px;
+    }
+
+    img {
+        image-rendering: -moz-crisp-edges; /* Firefox */
+        image-rendering: -o-crisp-edges; /* Opera */
+        image-rendering: -webkit-optimize-contrast; /*Webkit (non-standard naming) */
+        image-rendering: crisp-edges;
+        -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
+    }
+
+</style>
+
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row  layui-col-space10">
+
+        <div class="layui-col-md4">
+            <div class="layui-row">
+
+                <div class="layui-col-md12">
+                    <div class="layui-tab layui-tab-brief layui-bg-white" style="height: 660px">
+                        <ul class="layui-tab-title">
+                            <li class="layui-this">参数设置</li>
+                        </ul>
+
+                        <div class="layui-tab-content">
+                            <div class="layui-tab-item layui-show">
+                                <form class="layui-form" action="">
+
+                                    <div class="layui-form-item">
+                                        <a class="layui-btn layui-btn-normal layui-bg-orange layui-btn-sm" href="{% static 'demo/Demo_oncoprint.zip' %}">demo下载</a>
+                                        <a id="download" class="layui-btn layui-btn-normal layui-bg-green layui-btn-sm">结果下载</a>
+                                    </div>
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">任务名：</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="output" class="layui-input" lay-verify="required" value="oncoprint">
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">分组列名：</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="column_split" class="layui-input">
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">图片高度：</label>
+                                        <div class="layui-input-block">
+                                            <input type="number" name="width" class="layui-input">
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">图片高度：</label>
+                                        <div class="layui-input-block">
+                                            <input type="number" name="height" class="layui-input">
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item" style="padding-left: 40px">
+                                        <div class="layui-upload">
+                                            <button type="button" class="layui-btn layui-btn-normal layui-btn-sm" id="upload">上传输入文件</button>
+                                            <div class="layui-upload-list">
+                                                <table class="layui-table" id="table_input"></table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="layui-form-item layui-layout-admin">
+                                        <div class="layui-input-block">
+                                            <button id="button-form" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="button-form">分析</button>
+                                            <a id="download" class="layui-btn layui-btn-normal layui-bg-green">下载</a>
+                                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="layui-col-md8">
+            <div class="layui-tab layui-tab-brief layui-bg-white">
+                <ul class="layui-tab-title">
+                    <li id="tab-title-rslt">分析结果</li>
+                    <li id="tab-title-help" class="layui-this">说明文档</li>
+                </ul>
+
+                <div id="rslt-div" class="layui-tab-content" style="height: 600px">
+                    <div id="tab-item-rslt" class="layui-tab-item">
+                        <img id="img-rslt" src="{% static 'img/no_images.png' %}" style="margin: 0 auto;">
+                    </div>
+
+                    <div id="tab-item-help" class="layui-tab-item  layui-show">
+                        <iframe id="iframe-body" src="{% url 'plot_oncoprint_doc' %}" style="height: 600px; width: 100%" frameborder="0"></iframe>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        {% verbatim %}
+        <script type="text/html" id="toolbar-tools">
+            <div class="layui-btn-container">
+                {{#  if(d.code == "run"){ }}
+                    <button class="layui-btn layui-btn-xs layui-btn-warm" lay-event="rm_analyze">运行中</button>
+                {{#  } else if(d.code == "done") { }}
+                    <button class="layui-btn layui-btn-xs layui-btn-normal" lay-event="rm_analyze">完成</button>
+                {{#  } else if(d.code == "error") { }}
+                    <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="in_analyze">失败</button>
+                {{#  } else { }}
+                     <button class="layui-btn layui-btn-xs layui-btn-disabled" lay-event="in_analyze">无任务</button>
+                {{#  } }}
+          </div>
+        </script>
+        {% endverbatim %}
+
+    </div>
+</div>
+
+
+<script src="{% static '/js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static '/layuiadmin/layui/layui.js' %}"></script>
+<script src="{% static '/js/bio_plot.js' %}"></script>
+<script>
+
+    layui.config({
+        base: '{% static "layuiadmin/" %}'
+    }).extend({
+        index: 'lib/index',
+    }).use(['index', 'form', 'table', 'upload'], function(){
+        let $ = layui.$
+            ,layer = layui.layer
+            ,table = layui.table
+            ,upload = layui.upload
+            ,form = layui.form;
+
+        // iframe和图片自适应
+       function FrameWH() {
+           let h = document.getElementById("rslt-div").clientHeight - 20;
+           let w = document.getElementById("rslt-div").clientWidth - 20;
+           document.getElementById("img-rslt").setAttribute("height", h + "px");
+           document.getElementById("img-rslt").setAttribute("width", w + "px");
+           document.getElementById("iframe-body").setAttribute("height", h + "px");
+           document.getElementById("iframe-body").setAttribute("width", w + "px");
+       }
+       FrameWH();
+       $(window).resize(function () {
+           FrameWH();
+       });
+
+       // 文件上传表格
+        table.render({
+            elem: '#table_input'
+            ,cols: [[
+                {field: 'tag', title: '标签'}
+                ,{field: 'name', title: '文件名'}
+                ,{field: 'path', title: '服务器路径', hide: true}
+                ]]
+            ,data: []
+        });
+
+        // 将文件上传
+        upload.render({
+            elem: '#upload'
+            ,accept: "file"
+            ,url: '{% url "backstage:upload_file" %}'
+            ,done: function (res, index, upload) {
+                layer.prompt({
+                    value: 'clinic',
+                    title: '请输入文件分组',
+                }, function(value, index, elem){
+                    let data = layui.table.cache['table_input'];
+                    data.push({
+                        "tag": value
+                        ,"name": res['file'].split('/')[res['file'].split('/').length - 1]
+                        ,'path': res['file']
+                    });
+                    table.reload('table_input', {data: data});
+                    layer.close(index);
+                });
+            }
+        });
+
+
+        $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
+        form.on('submit(button-form)', function(data){
+            let field = data.field;
+            let data_table = layui.table.cache['table_input'];
+            for (let i = 0; i < data_table.length; ++i) {
+                let value = data_table[i];
+                field[value['tag']] = value['path']
+            }
+
+            $.ajax({
+                url: "{% url 'backstage:plot_oncoprint' %}"
+                ,type: "post"
+                ,async: true
+                ,data: field
+                ,beforeSend: function () {
+                    layer.load(1, {shade: [0.4,'#fff']});
+                    $("#tab-item-help").removeClass("layui-show");
+                    $("#tab-title-help").removeClass("layui-this");
+                    $("#tab-item-rslt").addClass("layui-show");
+                    $("#tab-title-rslt").addClass("layui-this");
+                    $("#button-form").addClass("layui-btn-disabled");
+                    document.getElementById("img-rslt").setAttribute("src", "{% static 'img/no_images.png' %}");
+                }
+                ,success: function (data) {
+                    layer.closeAll();
+                    document.getElementById("img-rslt").setAttribute("src", "{% url 'backstage:get_file' %}?path=" + data["f_png"]);
+                    document.getElementById("download").setAttribute("href", "{% url 'backstage:download' %}?file=" + data["f_pdf"]);
+                }
+                ,error: function (jqXHR, textStatus, errorThrown) {
+                    layer.closeAll();
+                    layer.open({
+                        type: 1,
+                        skin: 'layui-layer-demo',
+                        anim: 2,
+                        shadeClose: true,
+                        title: "分析错误日志",
+                        content: errorThrown
+                    });
+                }
+                ,complete: function () {
+                    $("#button-form").removeClass("layui-btn-disabled");
+                }
+            });
+            return false;
+        });
+
+    });
+  </script>
+</body>
+</html>
