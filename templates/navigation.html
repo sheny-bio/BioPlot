@@ -56,15 +56,11 @@
                 <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
 
                     <li data-name="home" class="layui-nav-item layui-nav-itemed">
-                        <a href="javascript:" lay-tips="主页" lay-direction="2">
+                        <a lay-href="{% url 'home' %}" lay-tips="主页" lay-direction="2">
                             <i class="layui-icon layui-icon-home"></i>
                             <cite>主页</cite>
                         </a>
-                        <dl class="layui-nav-child">
-                            <dd class="layui-this"><a lay-href="{% url 'home' %}">所有工具</a></dd>
-                            <dd><a lay-href="{% url 'home_rd' %}">研发部专用</a></dd>
-{#                            <dd><a lay-href="{% url 'home_pipeline' %}">生信分析</a></dd>#}
-                        </dl>
+
                     </li>
 
                     <li class="layui-nav-item">
@@ -80,17 +76,23 @@
                     <li class="layui-nav-item">
                         <a href="javascript:"><i class="layui-icon layui-icon-form"></i><cite>生信分析</cite></a>
                         <dl class="layui-nav-child">
-                            <dd id="page_update"><a lay-href="{% url 'pipeline_kegg' %}">KEGG图</a></dd>
-                            <dd id="page_update"><a lay-href="{% url 'pipeline_gistic' %}">GISTIC分析</a></dd>
+                            <dd id="KEGG"><a lay-href="{% url 'pipeline_kegg' %}">KEGG图</a></dd>
+
+                            {% if ip !=  "172.18.33.122" %}
+                                <dd id="GISTIC"><a lay-href="{% url 'pipeline_gistic' %}">GISTIC分析</a></dd>
+                            {% endif %}
                         </dl>
                     </li>
 
-                    <li class="layui-nav-item">
-                        <a href="javascript:"><i class="layui-icon layui-icon-form"></i><cite>其他</cite></a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="{% url 'others_layui' %}?url=doc.html">layui</a></dd>
-                        </dl>
-                    </li>
+
+                    {% if ip !=  "172.18.33.122" %}
+                        <li class="layui-nav-item">
+                            <a href="javascript:"><i class="layui-icon layui-icon-form"></i><cite>其他</cite></a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="{% url 'others_layui' %}?url=doc.html">layui</a></dd>
+                            </dl>
+                        </li>
+                    {% endif %}
 
                 </ul>
             </div>

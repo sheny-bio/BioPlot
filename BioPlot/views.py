@@ -22,7 +22,9 @@ from django.views import View
 
 def navigation(request):
     """进入导航页"""
-    return render(request, 'navigation.html')
+    host = request.get_host()
+    ip = host.split(":")[0]
+    return render(request, 'navigation.html', context={"ip": ip})
 
 
 def home(request):
