@@ -29,7 +29,7 @@ for name, host in host_map.items():
           f"--threads=20 " \
           f"--chdir={path} >> {path}/log/uwsgi.{name}.log"
     print(cmd)
-    cmd = f'nohup {cmd}'
-    subprocess.check_call(cmd, shell=True)
+    cmd = f'nohup {cmd} &'
+    subprocess.Popen(cmd, shell=True)
 
 print(f"run 'nginx -c /root/MyProject/BioPlot/destiny_aliyun.conf'")
