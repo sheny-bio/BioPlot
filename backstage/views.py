@@ -268,51 +268,55 @@ def plot_oncoprint(request):
 def pipeline_kegg(request):
     """kegg分析"""
 
-    job_name = request.POST.get("id")
-    gene_list = request.POST.get("gene_list")
-    cutoff_field = request.POST.get("cutoff_field")
-    min_cutoff = request.POST.get("min_cutoff")
-    width = request.POST.get("width")
-    height = request.POST.get("height")
-    if not job_name:
-        return JsonResponse({}, status=412, reason="job id is required")
-    if not gene_list:
-        return JsonResponse({}, status=412, reason="gene_list is required")
+    data = PipelineKegg(request.POST)
+    if not data.is_valid():
+        print(form_valid_error(data))
 
-    d_output = _give_me_directory(f"{settings.DIR_TMP}/KEGG/")
-    d_output = os.path.abspath(d_output)
-    d_analyze = f"{d_output}/Result"
-    os.makedirs(d_analyze)
-    f_gene = f"{d_output}/{job_name}.gene.list"
-    f_zip = f"{d_output}/{job_name}.zip"
-    f_cmd = f"{d_output}/run.sh"
-
-    with open(f_gene, "w") as fw:
-        if not gene_list.endswith("\n"):
-            gene_list = gene_list + "\n"
-        fw.write(gene_list)
-
-    with open(f_cmd, "w") as fw:
-        cmd = f"{settings.RSCRIPT_KEGG} {settings.DIR_SCRIPT}/plot_go_kegg_enrich_plot.R " \
-              f"{f_gene} " \
-              f"{d_analyze} " \
-              f"{cutoff_field} " \
-              f"{min_cutoff} " \
-              f"{width} " \
-              f"{height} " \
-              f"&& zip -j -r {f_zip} {d_analyze}/*"
-        fw.write(cmd)
-
-    try:
-        rslt = _submit_job(job_id=job_name, command=cmd, d_output=d_output)
-    except Exception as error:
-        print(error)
-        return JsonResponse({}, status=412, reason="submit error")
-    else:
-        # rslt["rslt"] = os.path.abspath(d_output).split("temp", 2)[-1]
-        rslt["rslt"] = os.path.abspath(d_output)
-        print(rslt)
-        return JsonResponse(rslt)
+    # job_name = request.POST.get("id")
+    # gene_list = request.POST.get("gene_list")
+    # cutoff_field = request.POST.get("cutoff_field")
+    # min_cutoff = request.POST.get("min_cutoff")
+    # width = request.POST.get("width")
+    # height = request.POST.get("height")
+    # if not job_name:
+    #     return JsonResponse({}, status=412, reason="job id is required")
+    # if not gene_list:
+    #     return JsonResponse({}, status=412, reason="gene_list is required")
+    #
+    # d_output = _give_me_directory(f"{settings.DIR_TMP}/KEGG/")
+    # d_output = os.path.abspath(d_output)
+    # d_analyze = f"{d_output}/Result"
+    # os.makedirs(d_analyze)
+    # f_gene = f"{d_output}/{job_name}.gene.list"
+    # f_zip = f"{d_output}/{job_name}.zip"
+    # f_cmd = f"{d_output}/run.sh"
+    #
+    # with open(f_gene, "w") as fw:
+    #     if not gene_list.endswith("\n"):
+    #         gene_list = gene_list + "\n"
+    #     fw.write(gene_list)
+    #
+    # with open(f_cmd, "w") as fw:
+    #     cmd = f"{settings.RSCRIPT_KEGG} {settings.DIR_SCRIPT}/plot_go_kegg_enrich_plot.R " \
+    #           f"{f_gene} " \
+    #           f"{d_analyze} " \
+    #           f"{cutoff_field} " \
+    #           f"{min_cutoff} " \
+    #           f"{width} " \
+    #           f"{height} " \
+    #           f"&& zip -j -r {f_zip} {d_analyze}/*"
+    #     fw.write(cmd)
+    #
+    # try:
+    #     rslt = _submit_job(job_id=job_name, command=cmd, d_output=d_output)
+    # except Exception as error:
+    #     print(error)
+    #     return JsonResponse({}, status=412, reason="submit error")
+    # else:
+    #     # rslt["rslt"] = os.path.abspath(d_output).split("temp", 2)[-1]
+    #     rslt["rslt"] = os.path.abspath(d_output)
+    #     print(rslt)
+    #     return JsonResponse(rslt)
 
 
 @_is_post
@@ -4045,3 +4049,14 @@ def plot_rd_qc_line(request):
         return JsonResponse({"code": 2, "msg": f_error})
     else:
         return JsonResponse({"code": 0, "f_output": f_output})
+
+
+def form_valid_error(form: forms.Form):
+    """返回表单验证时的错误信息"""
+
+    error = form.errors.as_json()
+    print(error)
+    error_str = {f"{k}: {error[k][0]}<br/>" for k in error.keys()}
+
+
+

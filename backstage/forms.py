@@ -240,7 +240,6 @@ class LinePlotForm(GgplotForm):
     group_group = forms.Field(required=False)
 
 
-
 class PlotSwimmerForm(forms.Form):
 
     # 泳图表单
@@ -271,42 +270,19 @@ class PlotSwimmerForm(forms.Form):
     set_line_size = forms.IntegerField(required=False)
 
 
-#
-# class HeatmapForm(forms.Field):
-#
-#     exprTable = forms.CharField(required=True)
-#     set_pic_width = forms.IntegerField()
-#     set_pic_height
-#     set_filename
-#
-#     whether_cluster_column
-#     whether_cluster_row
-#     whether_original_order_column
-#     whether_original_order_row
-#
-#     set_clustering_method
-#     set_clustering_distance_rows
-#     set_clustering_distance_cols
-#     set_treeheight_col
-#     set_treeheight_row
-#
-#     whether_show_legend
-#     whether_scale
-#
-#     whether_show_rownames
-#     whether_show_colnames
-#     set_font_size_row
-#     set_font_size_col
-#     set_angle_col
-#
-#     set_cellwidth
-#     set_cellheight
-#     set_color_gradient
-#     set_color_gradient_number
-#     set_border_color
-#     whether_display_number
-#     set_font_size_num
-#     set_number_color
-#
-#     set_cutree_cols
-#     set_cutree_rows
+class PipelineKegg(forms.Form):
+    """kegg分析的表单验证"""
+
+    job_name = forms.Field(required=False)
+    gene_list = forms.Field(required=True)
+    cutoff_field = forms.Field(required=True)
+    min_cutoff = forms.FloatField(required=True)
+    width = forms.IntegerField(required=True)
+    height = forms.IntegerField(required=True)
+
+    def clean_job_name(self):
+        value = self.cleaned_data['job_name']
+        raise forms.ValidationError('can not find input file')
+        return value
+
+
