@@ -27,7 +27,7 @@ for name, host in host_map.items():
           f"--http {host} " \
           f"--processes=20 " \
           f"--threads=20 " \
-          f"--chdir={path} >> {path}/log/uwsgi.{name}.log"
+          f"--chdir={path} >> {path}/log/uwsgi.{name}.log --chmod-socket=777"
     print(cmd)
     cmd = f'nohup {cmd} &'
     subprocess.Popen(cmd, shell=True)
